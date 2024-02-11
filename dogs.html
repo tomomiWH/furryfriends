@@ -1,0 +1,227 @@
+<html>
+<head>
+<title>Dogs</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newDog() { showform('insert'); }
+    function updateDog(dog_id) { showform('update'); }
+    function deleteDog(dog_id) { showform ('delete'); }
+    function browseDogs() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseDogs()">
+<h1>Dogs</h1>
+
+[ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | Cats | Breeds ]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms for Dogs</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    
+
+    <th>dog_id</th>
+    <th>dog_name</th>
+    <th>age_years</th>
+    <th>weight_lb</th>
+    <th>sex</th>
+    <th>posed_date</th>
+    <th>date_vaccinated</th>
+    <th>date_nuetered</th>
+    <th>date_microchipped</th>
+    <th>adoptor_id</th>
+    <th>date_adopted</th>
+    <th><a href="#" onClick="newDog()">New</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td align="right" >1</td>
+    <td >Lily</td>
+    <td align="right" >10</td>
+    <td align="right" >50</td>
+    <td align="center">F</td>  
+    <td>2024-01-20</td>
+    <td>2023-10-15</td>
+    <td>2013-10-10</td>
+    <td>2013-08-10</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td><a href="#" onClick="updateDog('this.dogID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDog('this.dogID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >2</td>
+    <td >Rocky</td>
+    <td align="right" >3</td>
+    <td align="right" >15</td>
+    <td align="center">M</td>  
+    <td>2024-01-23</td>
+    <td>2024-01-23</td>
+    <td>2021-08-16</td>
+    <td>2021-08-16</td>
+    <td>3</td>
+    <td>2024-02-01</td>
+    <td><a href="#" onClick="updateDog('this.dogID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDog('this.dogID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >3</td>
+    <td >Bradly</td>
+    <td align="right" >2</td>
+    <td align="right" >10</td>
+    <td align="center">M</td>  
+    <td>2024-01-10</td>
+    <td>2023-09-20</td>
+    <td>2013-10-10</td>
+    <td>2022-10-20</td>
+    <td>3</td>
+    <td>2024-02-01</td>
+    <td><a href="#" onClick="updateDog('this.dogID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDog('this.dogID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >4</td>
+    <td >Mia</td>
+    <td align="right" >1</td>
+    <td align="right" >5</td>
+    <td align="center">F</td>  
+    <td>2024-01-01</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td><a href="#" onClick="updateDog('this.dogID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDog('this.dogID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >5</td>
+    <td >Sophie</td>
+    <td align="right" >6</td>
+    <td align="right" >20</td>
+    <td align="center">F</td>  
+    <td>2024-01-25</td>
+    <td>2023-10-10</td>
+    <td>2018-07-20</td>
+    <td>2018-07-20</td>
+    <td>2</td>
+    <td>2024-01-31</td>
+    <td><a href="#" onClick="updateDog('this.dogID')">Edit</a></td>
+    <td><a href="#" onclick="deleteDog('this.dogID')">Delete</a></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addDog">
+        <legend><strong>Add Dog</strong></legend>
+          <fieldset class="fields">
+            <label> Dog's Name</label> <input type="text" name="dog_name">
+            <label> Age (years)</label> <input type="text" name="age_years">
+            <label> Weight (lb)</label> <input type="text" name="weight_lb"> 
+            <label> Sex </label> <input type="text" name="sex">
+            <label> Posted Date </label> <input type="text" name="posted_date">
+            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated">
+            <label> Date Nuetered </label> <input type="text" name="date_nuetered">
+            <label> Date Microchipped </label> <input type="text" name="date_microchipped">
+            <label> Adopted by</label>
+              <select name="adoptor_id">
+                <option value="0">&nbsp;</option>
+                <option value="1">Olive Smith</option>
+                <option value="2">Leo Brown</option>
+                <option value="3">Chalie Lopez</option>
+                <option value="4">Lucy Miller</option>
+                <option value="5">Mike Reyes</option>
+              </select>
+            <label> Date Adopted </label> <input type="text" name="date_adopted">
+      </fieldset>
+          <input class="btn" type="submit" id="addDog" value="Add Dog">
+          <input class="btn" type="button" value="cancel" onClick="browseDogs()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateDog">
+        <legend><strong>Update Dog</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="dogID" id="updatedogID" value="1">
+            <label> ID: </label> 1
+            <label> Dog's Name</label> <input type="text" name="dog_name" value="Lily">
+            <label> Age (years)</label> <input type="text" name="age_years" value="15">
+            <label> Weight (lb)</label> <input type="text" name="weight_lb" value="50"> 
+            <label> Sex </label> <input type="text" name="sex" value="F">
+            <label> Posted Date </label> <input type="text" name="posted_date" value="2024-01-20">
+            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated" value="2023-10-15">
+            <label> Date Nuetered </label> <input type="text" name="date_nuetered" value="2013-10-10">
+            <label> Date Microchipped </label> <input type="text" name="date_microchipped" value="2013-08-10">
+            <label> Adopted by</label>
+              <select name="adoptor_id">
+                <option value="0" selected>&nbsp;</option>    <!-- selected -->
+                <option value="1">Olive Smith</option>
+                <option value="2">Leo Brown</option>
+                <option value="3">Chalie Lopez</option>
+                <option value="4">Lucy Miller</option>
+                <option value="5">Mike Reyes</option>
+              </select>
+            <label> Date Adopted </label> <input type="text" name="date_adopted" value="">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveDog" value="Save Update Dog">
+          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteDog">
+      <legend><strong>Delete Dog</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you want to delete the Dog?</p>
+          <input type="hidden" name="dogID" id="deletedogID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Dog's Name</strong> </label> Lucy
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteDog" value="Delete Dog">
+          <input class="btn" type="button" value="cancel" onClick="browseDogs()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>
