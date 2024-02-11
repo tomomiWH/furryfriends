@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>Adoptors</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Adoptors</h1>
+
+[ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | Cats | Breeds ]
+<div id="browse" style="display: block">
+<p><strong>Browse Adoptors</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#">New</a></th>
+    <th></th>
+    <th>adoptor_id</th>
+    <th>first_name</th>
+    <th>last_name</th>
+    <th>address</th>
+    <th>phone</th>
+    <th>email</th>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right" >1</td>
+    <td >Olive</td>
+    <td >Smith</td>
+    <td >10 College ave, Portland OR 97086</td>
+    <td>503-111-2222</td>
+    <td>example@gmail.com</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Leo</td>
+    <td>Brown</td>
+    <td >1 Harbor street, Portland OR 97086</td>
+    <td >503-111-2223</td>
+    <td>test@outlook.com</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right">3</td>
+    <td>Charlie</td>
+    <td>Lopez</td>
+    <td >20 Riverdale street, Troutdale OR 97086</td>
+    <td>503-111-2224</td>
+    <td>123@rocketmail.com</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right">4</td>
+    <td>Lucy</td>
+    <td>Miller</td>
+    <td >6 Creek rd, College ave, Cedar Mill OR 97086</td>
+    <td>503-111-2225</td>
+    <td>oneemail@aol.com</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="right">5</td>
+    <td>Mike</td>
+    <td>Reyes</td>
+    <td >44 Spring ave, Portland OR 97086</td>
+    <td>503-111-2226</td>
+    <td>emailaddress@gmail.com</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addAdoptor">
+        <legend><strong>Add Adoptor</strong></legend>
+          <fieldset class="fields">
+            <label> First Name </label> <input type="text" name="first_name">
+            <label> Last Name </label> <input type="text" name="last_name">
+            <label> Address </label> <input type="text" name="address">
+            <label> Phone </label> <input type="text" name="phone">
+            <label> Email </label> <input type="text" name="email">
+          </fieldset>
+          <input class="btn" type="submit" id="addAdoptor" value="Add a Adoptor">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new Adoptor-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateAdoptor">
+      <legend><strong>Update Adoptor</strong></legend>
+          <fieldset class="fields">
+          <label>ID:</label> 1
+            <label> First Name </label> <input type="text" name="first_name" value="Olive">
+            <label> Last Name </label> <input type="text" name="last_name" value="Smith">
+            <label> Address </label> <input type="text" name="address" value="10 College ave, Portland OR 97086">
+            <label> Phone </label> <input type="text" name="phone" value="503-111-2222">
+            <label> Email </label> <input type="text" name="email" value="example@gmail.com">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveAdoptor" value="Save Update Adoptor">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteAdoptor">
+      <legend><strong>Delete Adoptor</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <label>ID:</label> 1
+            <label> First Name </label> Olive
+            <label> Last Name </label> Smith
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteAdoptor" value="Delete Adoptor">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>
