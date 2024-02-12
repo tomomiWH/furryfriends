@@ -1,0 +1,228 @@
+<html>
+<head>
+<title>cats</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+		// function showform(dowhat) {
+
+		// 	if (dowhat == 'insert'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'block';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// 	else if (dowhat == 'update'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'block';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// 	else if (dowhat == 'delete'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'block';
+		// 	}
+    //   else if (dowhat == 'all'){
+		// 		document.getElementById('browse').style.display = 'block';
+		// 		document.getElementById('insert').style.display = 'block';
+		// 		document.getElementById('update').style.display = 'block';
+		// 		document.getElementById('delete').style.display = 'block';
+		// 	}
+		// 	else { //by default display browse
+		// 		document.getElementById('browse').style.display = 'block';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// }
+    // function newcat() { showform('insert'); }
+    // function updatecat(cat_id) { showform('update'); }
+    // function deletecat(cat_id) { showform ('delete'); }
+    // function browsecats() { showform ('browse'); }
+    // function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browsecats()">
+<h1>cats</h1>
+
+[ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | | <a href="cats.html">Cats</a> | <a href="catsbreedrecords.html">Cats Breed Records</a> | <a href="breeds.html">Breeds</a>
+<div id="browse">
+<!-- <p><a href="#" onClick="showAll()">Display all forms for cats</a> </p> -->
+<p><strong>Browse Cats </strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+
+
+    <th>cat_id</th>
+    <th>cat_name</th>
+    <th>age_years</th>
+    <th>weight_lb</th>
+    <th>sex</th>
+    <th>posed_date</th>
+    <th>date_vaccinated</th>
+    <th>date_nuetered</th>
+    <th>date_microchipped</th>
+    <th>adoptor_id</th>
+    <th>date_adopted</th>
+    <th><a href="#" onClick="newcat()">New</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td align="right" >1</td>
+    <td >Pompom</td>
+    <td align="right" >3</td>
+    <td align="right" >8</td>
+    <td align="center">F</td>
+    <td>2024-02-02</td>
+    <td>2024-01-23</td>
+    <td>2013-10-10</td>
+    <td>2013-08-10</td>
+    <td>Olive Smith</td>
+    <td>2024-02-03</td>
+    <td><a href="#" onClick="updatecat('this.catID')">Edit</a></td>
+    <td><a href="#" onclick="deletecat('this.catID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >2</td>
+    <td >Jack</td>
+    <td align="right" >5</td>
+    <td align="right" >15</td>
+    <td align="center">M</td>
+    <td>2024-01-23</td>
+    <td>2021-10-07</td>
+    <td>2021-08-16</td>
+    <td>2021-08-16</td>
+    <td>Charlie Lopez</td>
+    <td>2024-02-01</td>
+    <td><a href="#" onClick="updatecat('this.catID')">Edit</a></td>
+    <td><a href="#" onclick="deletecat('this.catID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >3</td>
+    <td >Dexter</td>
+    <td align="right" >1</td>
+    <td align="right" >10</td>
+    <td align="center">M</td>
+    <td>2024-01-10</td>
+    <td>2023-09-20</td>
+    <td>2013-10-20</td>
+    <td>2022-10-20</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td><a href="#" onClick="updatecat('this.catID')">Edit</a></td>
+    <td><a href="#" onclick="deletecat('this.catID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >4</td>
+    <td >Mochi</td>
+    <td align="right" >1</td>
+    <td align="right" >5</td>
+    <td align="center">F</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td>NULL</td>
+    <td><a href="#" onClick="updatecat('this.catID')">Edit</a></td>
+    <td><a href="#" onclick="deletecat('this.catID')">Delete</a></td>
+  </tr>
+  <tr>
+    <td align="right" >5</td>
+    <td >Chester</td>
+    <td align="right" >6</td>
+    <td align="right" >20</td>
+    <td align="center">M</td>
+    <td>2024-01-25</td>
+    <td>2023-10-10</td>
+    <td>2018-07-20</td>
+    <td>2018-07-20</td>
+    <td>Leo Brown</td>
+    <td>2024-01-31</td>
+    <td><a href="#" onClick="updatecat('this.catID')">Edit</a></td>
+    <td><a href="#" onclick="deletecat('this.catID')">Delete</a></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addcat">
+        <legend><strong>Add cat</strong></legend>
+          <fieldset class="fields">
+            <label> cat's Name</label> <input type="text" name="cat_name">
+            <label> Age (years)</label> <input type="text" name="age_years">
+            <label> Weight (lb)</label> <input type="text" name="weight_lb">
+            <label> Sex </label> <input type="text" name="sex">
+            <label> Posted Date </label> <input type="text" name="posted_date">
+            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated">
+            <label> Date Nuetered </label> <input type="text" name="date_nuetered">
+            <label> Date Microchipped </label> <input type="text" name="date_microchipped">
+            <label> Adopted by</label>
+              <select name="adoptor_id">
+                <option value="0">&nbsp;</option>
+                <option value="1">Olive Smith</option>
+                <option value="2">Leo Brown</option>
+                <option value="3">Chalie Lopez</option>
+                <option value="4">Lucy Miller</option>
+                <option value="5">Mike Reyes</option>
+              </select>
+            <label> Date Adopted </label> <input type="text" name="date_adopted">
+      </fieldset>
+          <input class="btn" type="submit" id="addcat" value="Add cat">
+          <input class="btn" type="button" value="cancel" onClick="browsecats()">
+	</form>
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="Updatecat">
+        <legend><strong>Update cat</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="catID" id="updatecatID" value="1">
+            <label> ID: </label> 1
+            <label> cat's Name</label> <input type="text" name="cat_name" value="Pompom">
+            <label> Age (years)</label> <input type="text" name="age_years" value="3">
+            <label> Weight (lb)</label> <input type="text" name="weight_lb" value="8">
+            <label> Sex </label> <input type="text" name="sex" value="F">
+            <label> Posted Date </label> <input type="text" name="posted_date" value="2024-02-02">
+            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated" value="2024-01-23">
+            <label> Date Nuetered </label> <input type="text" name="date_nuetered" value="2013-10-10">
+            <label> Date Microchipped </label> <input type="text" name="date_microchipped" value="2013-08-10">
+            <label> Adopted by</label>
+              <select name="adoptor_id">
+                <option value="0" selected>&nbsp;</option>    <!-- selected -->
+                <option value="1">Olive Smith</option>
+                <option value="2">Leo Brown</option>
+                <option value="3">Chalie Lopez</option>
+                <option value="4">Lucy Miller</option>
+                <option value="5">Mike Reyes</option>
+              </select>
+            <label> Date Adopted </label> <input type="text" name="date_adopted" value="">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSavecat" value="Save Update cat">
+          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+	</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deletecat">
+      <legend><strong>Delete cat</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you want to delete the cat?</p>
+          <input type="hidden" name="catID" id="deletecatID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>cat's Name</strong> </label> Cat
+
+    </fieldset>
+    <input class="btn" type="submit" id="Deletecat" value="Delete cat">
+          <input class="btn" type="button" value="cancel" onClick="browsecats()">
+  </form>
+</div><!-- delete -->
+
+</body>
+</html>

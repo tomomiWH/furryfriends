@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>Cats Breed Records</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Cats Breed Records</h1>
+
+[ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | <a href="cats.html">Cats</a> | <a href="catsbreedrecords.html">Cats Breed Records</a> | <a href="breeds.html">Breeds</a>
+<div id="browse" style="display: block">
+<p><strong>Browse cats Breed Records</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>cat_breed_record_id</th>
+    <th>breed_id</th>
+    <th>cat_id</th>
+    <th><a href="#">New</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td  >1</td>
+    <td >Ragdoll</td>
+    <td >Pompom</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >2</td>
+    <td >American Shorthair</td>
+    <td >Jack</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td >Balinese</td>
+    <td >Dexter</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >4</td>
+    <td >Cyprus</td>
+    <td >Dexter</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >5</td>
+    <td >American Shorthair</td>
+    <td >Mochi</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td >6</td>
+    <td >Cyprus</td>
+    <td >Mochi</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td >7</td>
+    <td >Foldex</td>
+    <td >Dexter</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addcatBreedRecord">
+        <legend><strong>Add cat Breed Record</strong></legend>
+          <fieldset class="fields">
+            <label> cat Breed </label>
+            <select name="breed_id">
+                <option value="0" >&nbsp;</option>
+                <option value="1" >Ragdoll</option>
+                <option value="2">American shorthair</option>
+                <option value="4">Balinese</option>
+                <option value="7">Cyprus</option>
+                <option value="8">Foldex</option>
+              </select>
+
+            <label> cat's Name </label>
+            <select name="cat_id">
+                <option value="0" >&nbsp;</option>
+                <option value="1" >Pompom</option>
+                <option value="2">Jack</option>
+                <option value="3">Dexter</option>
+                <option value="4">Mochi</option>
+                <option value="5">Chester</option>
+              </select>
+          </fieldset>
+          <input class="btn" type="submit" id="addcatBreedRecord" value="Add a cat Breed Record">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new cat Breed Record-->
+</div><!-- insert -->
+
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updatecatBreedRecord">
+      <legend><strong>Update cat Breed Record</strong></legend>
+          <fieldset class="fields">
+          <label>ID:</label> 1
+            <label> cat Breed  </label>
+            <select name="breed_id">
+                <option value="0" >&nbsp;</option>
+                <option value="1" >Ragdoll</option>
+                <option value="2">American shorthair</option>
+                <option value="4">Balinese</option>
+                <option value="7">Cyprus</option>
+                <option value="8">Foldex</option>
+              </select>
+
+            <label> cat's Name </label>
+            <select name="cat_id">
+              <option value="1" >Pompom</option>
+              <option value="2">Jack</option>
+              <option value="3">Dexter</option>
+              <option value="4">Mochi</option>
+              <option value="5">Chester</option>
+              </select>
+
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSavecatBreedRecord" value="Save Update cat Breed Record">
+          <input class="btn" type="button" value="cancel" >
+  </form>
+</div>  <!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deletecatBreedRecord">
+      <legend><strong>Delete cat Breed Record</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you want to delete the cat Breed Record?</p>
+          <label>ID:</label> 1
+            <label><strong> cat Breed</strong>  </label> Ragdoll
+            <label> <strong>cat's Name</strong> </label> Pompom
+
+    </fieldset>
+    <input class="btn" type="submit" id="DeletecatBreedRecord" value="Delete cat Breed Record">
+          <input class="btn" type="button" value="cancel" >
+  </form>
+</div><!-- delete -->
+</body>
+</html>
