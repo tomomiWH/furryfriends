@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>Dogs Breed Records</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Dogs Breed Records</h1>
+
+[ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | Cats | Cats Breed Records | Breeds ]
+<div id="browse" style="display: block">
+<p><strong>Browse Dogs Breed Records</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>dog_breed_record_id</th>
+    <th>breed_id</th>
+    <th>dog_id</th>
+    <th><a href="#">New</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td  >1</td>
+    <td >Husky</td>
+    <td >Lily</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >2</td>
+    <td >Poodle</td>
+    <td >Lily</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td >Australian Shepherd</td>
+    <td >Lily</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >4</td>
+    <td >Golden Retreiver</td>
+    <td >Rocky</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td  >5</td>
+    <td >Australian Shepherd</td>
+    <td >Rocky</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+  <tr>
+    <td >6</td>
+    <td >Corgi</td>
+    <td >Bradyly</td>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+  </tr>
+
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addDogBreedRecord">
+        <legend><strong>Add Dog Breed Record</strong></legend>
+          <fieldset class="fields">
+            <label> Dog Breed </label> 
+            <select name="breed_id">
+                <option value="0" >&nbsp;</option>    
+                <option value="1" >Husky</option>
+                <option value="2">Poodle</option>
+                <option value="4">Golden Retreiver</option>
+                <option value="7">Australian Shepard</option>
+                <option value="8">Corgi</option>
+              </select>
+
+            <label> Dog's Name </label>
+            <select name="dog_id">
+                <option value="0" >&nbsp;</option>   
+                <option value="1" >Lily</option>
+                <option value="2">Rocky</option>
+                <option value="3">Bradly</option>
+                <option value="4">Mia</option>
+                <option value="5">Sophie</option>
+              </select>
+          </fieldset>
+          <input class="btn" type="submit" id="addDogBreedRecord" value="Add a Dog Breed Record">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new Dog Breed Record-->
+</div><!-- insert -->
+
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateDogBreedRecord">
+      <legend><strong>Update Dog Breed Record</strong></legend>
+          <fieldset class="fields">
+          <label>ID:</label> 1
+            <label> Dog Breed  </label> 
+            <select name="breed_id">
+                <option value="0" >&nbsp;</option>    
+                <option value="1" selected>Husky</option>
+                <option value="2">Poodle</option>
+                <option value="4">Golden Retreiver</option>
+                <option value="7">Australian Shepard</option>
+                <option value="8">Corgi</option>
+              </select>
+
+            <label> Dog's Name </label> 
+            <select name="dog_id">
+                <option value="0" >&nbsp;</option>   
+                <option value="1" selected>Lily</option>
+                <option value="2">Rocky</option>
+                <option value="3">Bradly</option>
+                <option value="4">Mia</option>
+                <option value="5">Sophie</option>
+              </select>
+
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveDogBreedRecord" value="Save Update Dog Breed Record">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div>  <!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteDogBreedRecord">
+      <legend><strong>Delete Dog Breed Record</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you want to delete the Dog Breed Record?</p>
+          <label>ID:</label> 1
+            <label><strong> Dog Breed</strong>  </label> Husky
+            <label> <strong>Dog's Name</strong> </label> Lily
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteDogBreedRecord" value="Delete Dog Breed Record">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>
