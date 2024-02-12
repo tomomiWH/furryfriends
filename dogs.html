@@ -3,47 +3,48 @@
 <title>Dogs</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
-		function showform(dowhat) {
 			/*
 			* four DIVS: browse, insert, update, delete
 			* this function sets one visible the others not
 			*/
-			if (dowhat == 'insert'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
-			}
-			else { //by default display browse
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-		}
-    function newDog() { showform('insert'); }
-    function updateDog(dog_id) { showform('update'); }
-    function deleteDog(dog_id) { showform ('delete'); }
-    function browseDogs() { showform ('browse'); }
-    function showAll() { showform ('all'); }
+		// function showform(dowhat) {
+
+		// 	if (dowhat == 'insert'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'block';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// 	else if (dowhat == 'update'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'block';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// 	else if (dowhat == 'delete'){
+		// 		document.getElementById('browse').style.display = 'none';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'block';
+		// 	}
+    //   else if (dowhat == 'all'){
+		// 		document.getElementById('browse').style.display = 'block';
+		// 		document.getElementById('insert').style.display = 'block';
+		// 		document.getElementById('update').style.display = 'block';
+		// 		document.getElementById('delete').style.display = 'block';
+		// 	}
+		// 	else { //by default display browse
+		// 		document.getElementById('browse').style.display = 'block';
+		// 		document.getElementById('insert').style.display = 'none';
+		// 		document.getElementById('update').style.display = 'none';
+		// 		document.getElementById('delete').style.display = 'none';
+		// 	}
+		// }
+    // function newDog() { showform('insert'); }
+    // function updateDog(dog_id) { showform('update'); }
+    // function deleteDog(dog_id) { showform ('delete'); }
+    // function browseDogs() { showform ('browse'); }
+    // function showAll() { showform ('all'); }
 </script>
 </head>
 
@@ -53,7 +54,8 @@
 [ <a href="adopters.html">Adoptors</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | Cats | Cats Breed Records | Breeds ]
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Display all forms for Dogs</a> </p>
+<!-- <p><a href="#" onClick="showAll()">Display all forms for Dogs</a> </p> -->
+<p><strong>Browse Dogs </strong></p>
 <table border="1" cellpadding="5">
   <tr>
     
