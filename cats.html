@@ -50,9 +50,9 @@
 </head>
 
 <body onload="browsecats()">
-<h1>cats</h1>
+<h1>Cats</h1>
 
-[ <a href="adopters.html">Adopters</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | | <a href="cats.html">Cats</a> | <a href="catsbreedrecords.html">Cats Breed Records</a> | <a href="breeds.html">Breeds</a>
+[ <a href="index.html">Home</a>| <a href="adopters.html">Adopters</a> | <a href="dogs.html">Dogs</a> | <a href="dogsbreedrecords.html">Dogs Breed Records</a> | <a href="cats.html">Cats</a>  | <a href="catsbreedrecords.html">Cats Breed Records</a>| <a href="breeds.html">Breeds</a> ]
 <div id="browse">
 <!-- <p><a href="#" onClick="showAll()">Display all forms for cats</a> </p> -->
 <p><strong>Browse Cats </strong></p>
@@ -154,7 +154,7 @@
 </div> <!-- browse -->
 <div id="insert">
     <form method="POST" id="addcat">
-        <legend><strong>Add cat</strong></legend>
+        <legend><strong>Add Cat</strong></legend>
           <fieldset class="fields">
             <label> cat's Name</label> <input type="text" name="cat_name">
             <label> Age (years)</label> <input type="text" name="age_years">
@@ -182,7 +182,7 @@
 <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="Updatecat">
-        <legend><strong>Update cat</strong></legend>
+        <legend><strong>Update Cat</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="catID" id="updatecatID" value="1">
             <label> ID: </label> 1
@@ -212,12 +212,12 @@
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
   <form method="POST" id="deletecat">
-      <legend><strong>Delete cat</strong></legend>
+      <legend><strong>Delete Cat</strong></legend>
           <fieldset class="fields">
           <p>Are you sure you want to delete the cat?</p>
           <input type="hidden" name="catID" id="deletecatID" value="1">
           <label><strong>ID:</strong></label> 1
-            <label> <strong>cat's Name</strong> </label> Cat
+            <label> <strong>Cat's Name</strong> </label> Cat
 
     </fieldset>
     <input class="btn" type="submit" id="Deletecat" value="Delete cat">
