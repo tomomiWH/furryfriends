@@ -1,3 +1,16 @@
+:root {
+    --SkyBlue: rgb(61, 126, 194);
+    --SkyBlueT: rgba(61, 126, 194, 0.5);
+    --DarkBlue: rgba(3, 88, 140);
+    --DarkBlueT: rgba(3, 88, 140, 0.5);
+    --DarkGreen: rgb(2, 73, 89);
+    --DarkGreenT: rgba(2, 73, 890.5);
+    --LightBrown: rgb(242, 196, 155);
+    --LightBrownT: rgba(242, 196, 155, 0.8);
+    --DarkBrown: rgb(166, 139, 129);
+    --DarkBrownT: rgba(166, 139, 129, 0.5);
+  }
+
 th{
     background-color:rgb(246, 241, 248);
 	letter-spacing: 2%;  
