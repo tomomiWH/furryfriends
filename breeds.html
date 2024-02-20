@@ -93,8 +93,61 @@
     <td><a href="#">Delete</a></td>
   </tr>
 </table>
+<div id="insert">
+  <form method="POST" id="addbreed">
+      <legend><strong>Add Breed</strong></legend>
+        <fieldset class="fields">
+          <label> Breed Name</label> <input type="text" name="breed_name">
+
+
+          </select>
+          
+    </fieldset>
+        <input class="btn" type="submit" id="addbreed" value="Add breed">
+        <input class="btn" type="button" value="cancel" onClick="browsebreeds()">
+</form>
+</div><!-- insert -->
 <p>&nbsp;</p>
 
+<div id="update">
+  <form method="POST" id="Updatebreed">
+      <legend><strong>Update Breed</strong></legend>
+        <fieldset class="fields">
+        <input type="hidden" name="breedID" id="updatbreedID" value="1">
+        <label> Breed ID</label>
+        <select name="breed_id">
+          <option value="0">&nbsp;</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <label> breed Name</label> <input type="text" name="breed_name" value="Husky">
+          
+          
+    </fieldset>
+        <input class="btn" type="submit" id="UpdateSavebreedt" value="Save Updated breed">
+</form>
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+<form method="POST" id="deletebreed">
+    <legend><strong>Delete Breed</strong></legend>
+        <fieldset class="fields">
+          <label> Breed ID</label>
+          <select name="breed_id">
+            <option value="0">&nbsp;</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        <p>Are you sure you want to delete the breed?</p>
+        <input type="hidden" name="breedID" id="deletebreedID" value="1">
+        <label><strong>ID:</strong></label> 1
+          <label> <strong>Breed Name</strong> </label> Husky
+
+  </fieldset>
+  <input class="btn" type="submit" id="Deletebreed" value="Delete breed">
+        <input class="btn" type="button" value="cancel" onClick="browsebreeds()">
+</form>
+</div><!-- delete -->
 </div>
 </body>
 </html>
