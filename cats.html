@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>cats</title>
+<title>Cats</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
 			/*
@@ -163,10 +163,10 @@
             <label> Age (years)</label> <input type="text" name="age_years">
             <label> Weight (lb)</label> <input type="text" name="weight_lb">
             <label> Sex </label> <input type="text" name="sex">
-            <label> Posted Date </label> <input type="text" name="posted_date">
-            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated">
-            <label> Date Nuetered </label> <input type="text" name="date_nuetered">
-            <label> Date Microchipped </label> <input type="text" name="date_microchipped">
+            <label> Posted Date </label> <input type="date" name="posted_date">
+            <label> Date Vaccinated </label> <input type="date" name="date_vaccinated">
+            <label> Date Nuetered </label> <input type="date" name="date_nuetered">
+            <label> Date Microchipped </label> <input type="date" name="date_microchipped">
             <label> Adopted by</label>
               <select name="adopter_id">
                 <option value="0">&nbsp;</option>
@@ -176,7 +176,7 @@
                 <option value="4">Lucy Miller</option>
                 <option value="5">Mike Reyes</option>
               </select>
-            <label> Date Adopted </label> <input type="text" name="date_adopted">
+            <label> Date Adopted </label> <input type="date" name="date_adopted">
       </fieldset>
           <input class="btn" type="submit" id="addcat" value="Add cat">
           <input class="btn" type="button" value="cancel" onClick="browsecats()">
@@ -199,10 +199,10 @@
             <label> Age (years)</label> <input type="text" name="age_years" value="3">
             <label> Weight (lb)</label> <input type="text" name="weight_lb" value="8">
             <label> Sex </label> <input type="text" name="sex" value="F">
-            <label> Posted Date </label> <input type="text" name="posted_date" value="2024-02-02">
-            <label> Date Vaccinated </label> <input type="text" name="date_vaccinated" value="2024-01-23">
-            <label> Date Nuetered </label> <input type="text" name="date_nuetered" value="2013-10-10">
-            <label> Date Microchipped </label> <input type="text" name="date_microchipped" value="2013-08-10">
+            <label> Posted Date </label> <input type="date" name="posted_date" value="2024-02-02">
+            <label> Date Vaccinated </label> <input type="date" name="date_vaccinated" value="2024-01-23">
+            <label> Date Nuetered </label> <input type="date" name="date_nuetered" value="2013-10-10">
+            <label> Date Microchipped </label> <input type="date" name="date_microchipped" value="2013-08-10">
             <label> Adopted by</label>
               <select name="adopter_id">
                 <option value="0" selected>&nbsp;</option>    <!-- selected -->
@@ -212,7 +212,7 @@
                 <option value="4">Lucy Miller</option>
                 <option value="5">Mike Reyes</option>
               </select>
-            <label> Date Adopted </label> <input type="text" name="date_adopted" value="">
+            <label> Date Adopted </label> <input type="date" name="date_adopted" value="">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSavecat" value="Save Update cat">
           <input class="btn" type="button" value="cancel" onClick="browsePeople()">
