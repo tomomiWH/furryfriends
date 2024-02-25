@@ -1,0 +1,100 @@
+<html>
+<!-- Adapted from the edit_people.j2 -->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Edit Dogs</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Dogs: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in dogs-->
+            <form id="editDog" action="/edit_dogs/{{data[0].dog_id}}" method="post">
+                <legend><strong>Edit Dog</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of dog to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the dog we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].dog_id}}" class="form-control" id="dog_id" name="dog_id" required>
+                    
+                    <label for="make">dog_name:</label>
+                    <input type="text" value="{{data[0].dog_name}}" class="form-control" id="dog_name" name="dog_name" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label for="model">age_years:</label>
+                    <input type="text" value="{{data[0].age_years}}" class="form-control" id="age_years" name="age_years" pattern="[A-Za-z0-9]{1,}" required>
+                    
+                    <label for="weight_lb">weight_lb:</label>
+                    <input type="number" value="{{data[0].weight_lb}}" class="form-control" id="weight_lb" name="weight_lb" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+                    <label for="sex">sex :</label>
+                    <input type="text" value="{{data[0].sex}}" class="form-control" id="sex" name="sex" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+                    <label for="posted_date">posted_date:</label>
+                    <input type="date" value="{{data[0].posted_date}}" class="form-control" id="posted_date" name="posted_date" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                    <label for="date_vaccinated">date_vaccinated :</label>
+                    <input type="date" value="{{data[0].date_vaccinated}}" class="form-control" id="date_vaccinated" name="date_vaccinated" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                    <label for="date_neutered">date_neutered :</label>
+                    <input type="date" value="{{data[0].date_neutered}}" class="form-control" id="date_neutered" name="date_neutered" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                    <label for="date_microchipped">date_microchipped :</label>
+                    <input type="date" value="{{data[0].date_microchipped}}" class="form-control" id="date_microchipped" name="date_microchipped" pattern="[A-Za-z]{1,}" placeholder="" >
+                                
+                
+                
+                    <label for="adopter_id">adopter_id:</label>
+                    <select class="form-control" id="adopter_id" name="adopter_id" pattern="[0-4]{1}" placeholder="" > 
+                        <!-- Access our adopter_id tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for adopter_id in adopter_ids %}
+                                <!-- If the value iterated adopter_id matches the value of the adopter_id of dog currently Editing, pre-select that option -->
+                                {% if adopter_id['adopter_id'] == data[0].adopter_id %}
+                                    <option value="{{ adopter_id['adopter_id'] }}" selected> {{adopter_id['adopterName']}}</option>
+                                {% else %}
+                                    <option value="{{ adopter_id['adopter_id'] }}"> {{adopter_id['adopterName']}}</option> 
+                                {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
+                    <label for="date_adopted">date_adopted:</label>
+                    <input type="date" value="{{data[0].date_adopted}}" class="form-control" id="date_adopted" name="date_adopted" pattern="[A-Za-z0-9]{1,}" placeholder=""> 
+
+                </fieldset>
+                <input type="submit" value="Edit Dog" name="Edit_Dog" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/dogs'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

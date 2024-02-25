@@ -1,0 +1,170 @@
+<html>
+<!-- Adapted from the people.html UI design and people.j2 design-->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Dogs FLASK TEST POC</title>
+	<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript">
+	function showform(dowhat) {
+		/*
+		 * four DIVS: browse, insert, update, delete
+		 * this function sets one visible the others not
+		 */
+		if(dowhat == 'insert') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'update') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'delete') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'block';
+		} else if(dowhat == 'all') {
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'block';
+		} else { //by default display browse
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		}
+	}
+
+	function newDog() {
+		showform('insert');
+	}
+
+	function updateDog(dog_id) {
+		showform('update');
+	}
+
+	function deleteDog(dog_id) {
+		showform('delete');
+	}
+
+	function browseDogs() {
+		showform('browse');
+	}
+
+	function showAll() {
+		showform('all');
+	}
+	</script>
+</head>
+
+<body onload="browseDogs()">
+	<h1>Dogs</h1>
+	
+    <!-- nav menue bar -->
+	<nav class ="global">
+     <a href="index">Home</a> <a href="adopters">Adopters</a> <a href="breeds">Breeds</a> <a href="dogs">Dogs</a> <a href="dogsbreedrecords">Dogs Breed Records</a> <a href="cats">Cats</a> <a href="catsbreedrecords">Cats Breed Records</a> 
+     </nav>
+
+	<div id="browse">
+		<p><a href="#" onClick="newDog()">Add New Dog</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+					    
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our edit/delete buttons -->
+						    <td><a href="edit_dogs/{{item.dog_id}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_dogs/{{item.dog_id}}" class="btn btn-default">Delete</a></td>
+
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into Dogs table-->
+		<form id="insertDog" action="/dogs" method="post">
+			<legend><strong>Add Dog</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="dog_name">dog_name:</label>
+				<input type="text" class="form-control" id="dog_name" name="dog_name" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+				<label for="age_years">age_years</label>
+				<input type="number" class="form-control" id="age_years" name="age_years" pattern="[A-Za-z0-9]{1,}" placeholder="" required>
+
+				<label for="weight_lb">weight_lb:</label>
+				<input type="number" class="form-control" id="weight_lb" name="weight_lb" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+                <label for="sex">sex :</label>
+				<input type="text" class="form-control" id="sex" name="sex" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+                <label for="posted_date">posted_date:</label>
+				<input type="date" class="form-control" id="posted_date" name="posted_date" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                <label for="date_vaccinated">date_vaccinated :</label>
+				<input type="date" class="form-control" id="date_vaccinated" name="date_vaccinated" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                <label for="date_neutered">date_neutered :</label>
+				<input type="date" class="form-control" id="date_neutered" name="date_neutered" pattern="[A-Za-z]{1,}" placeholder="" >
+
+                <label for="date_microchipped">date_microchipped :</label>
+				<input type="date" class="form-control" id="date_microchipped" name="date_microchipped" pattern="[A-Za-z]{1,}" placeholder="" >
+
+				<label for="adopter_id">adopter_id:</label>
+				<select class="form-control" id="adopter_id" name="adopter_id" pattern="[0-4]{1}" placeholder="" > 
+					<!-- Access our adopter_id tuple passed from app.py-->
+					<option value="0">&nbsp;</option>
+					{% for adopter_id in adopter_ids %}
+							<!-- If the value iterated adopter_id matches the value of the adopter_id of dog currently Editing, pre-select that option -->
+							{% if adopter_id['adopter_id'] == data[0].adopter_id %}
+								<option value="{{ adopter_id['adopter_id'] }}" selected> {{adopter_id['adopterName']}}</option>
+							{% else %}
+								<option value="{{ adopter_id['adopter_id'] }}"> {{adopter_id['adopterName']}}</option> 
+							{% endif %}
+					<!-- End of this for loop -->
+					{% endfor %} 
+				</select>
+
+
+				<label for="date_adopted">date_adopted:</label>
+				<input type="date" class="form-control" id="date_adopted" name="date_adopted" pattern="[A-Za-z0-9]{1,}" placeholder=""> 
+            </fieldset>
+
+            <!-- Create 'Add Dog' and 'Cancel' buttons -->
+			<input type="submit" value="Add Dog" name="Add_Dog" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseDogs()"> 
+        </form>
+	</div><!--insert-->
+	
+
+	
+</body>
+</html>
