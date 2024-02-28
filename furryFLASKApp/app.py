@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_watantom'  #osu username
-app.config['MYSQL_PASSWORD'] = '1710'        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_watantom'    #osu username 
+app.config['MYSQL_USER'] = 'cs340_'  #osu username
+app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_'    #osu username 
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -216,6 +216,162 @@ def edit_dogs(dog_id):
 
             # redirect back to dogs page after we execute the update query
             return redirect("/dogs")
+
+
+
+# route for  page
+@app.route("/cats", methods=["POST", "GET"])
+def cats():
+    # Separate out the request methods, in this case this is for a POST
+    # insert a person into the bsg_people entity
+    if request.method == "POST":
+        # fire off if user presses the Add Cat button
+        if request.form.get("Add_Cat"):
+            # grab user form inputs
+
+            cat_name = request.form["cat_name"]
+            age_years = request.form["age_years"]
+            weight_lb = request.form["weight_lb"]
+            sex = request.form["sex"]
+            posted_date = request.form["posted_date"]
+            date_vaccinated = request.form["date_vaccinated"]
+            date_neutered = request.form["date_neutered"]
+            date_microchipped = request.form["date_microchipped"]
+            adopter_id = request.form["adopter_id"]
+            date_adopted = request.form["date_adopted"]
+
+
+            # account for null age AND homeworld
+            # if adopter_id == "0" and date_adopted == "":
+            #     # mySQL query to insert a new person into bsg_people with our form inputs
+            #     query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped))
+            #     mysql.connection.commit()
+
+            # # account for null homeworld
+            # elif date_vaccinated== "":
+            #     query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_neutered, date_microchipped, adopter_id, date_adopted))
+            #     mysql.connection.commit()
+
+            # else:
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
+            mysql.connection.commit()         
+
+            # redirect back to people page
+            return redirect("/cats")
+
+    # Grab bsg_people data so we send it to our template to display
+    if request.method == "GET":
+        cur = mysql.connection.cursor()
+        query = "SELECT * FROM Cats"
+        cur.execute(query)
+        data = cur.fetchall()  # Fetch all cat data
+
+        # mySQL query to grab adopter_id/name data for our dropdown
+        # query2 = "SELECT id, name FROM bsg_planets"
+        query2 = "SELECT adopter_id, CONCAT(Adopters.first_name, ' ', Adopters.last_name) AS adopterName FROM Adopters"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        adopter_data = cur.fetchall()
+
+        return render_template("cats.j2", data=data, adopter_ids=adopter_data)
+
+# route for delete functionality, deleting a cat from Cats,
+# we want to pass the 'id' value of that person on button click (see HTML) via the route
+@app.route("/delete_cats/<int:cat_id>")
+def delete_cats(cat_id):
+    # mySQL query to delete the person with our passed id
+    #query = "DELETE FROM bsg_people WHERE id = '%s';"
+    query = "DELETE FROM Cats WHERE cat_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (cat_id,))
+    mysql.connection.commit()
+
+    # redirect back to cats page
+    return redirect("/cats")
+        
+# route for edit functionality, updating the attributes of a person in bsg_people
+# similar to our delete route, we want to the pass the 'id' value of that person on button click (see HTML) via the route
+@app.route("/edit_cats/<int:cat_id>", methods=["POST", "GET"])
+def edit_cats(cat_id):
+    if request.method == "GET":
+        # mySQL query to grab the info of the cat with our passed id
+        query = "SELECT * FROM Cats WHERE cat_id = %s" % (cat_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        # mySQL query to grab cat id/name data for our dropdown
+        #query2 = "SELECT adopter_id, first_name FROM Adopters"
+        query2 = "SELECT adopter_id, CONCAT(Adopters.first_name, ' ', Adopters.last_name) AS adopterName FROM Adopters"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        adopter_data = cur.fetchall()
+
+        # render edit_cats page passing our query data and adopter data to the edit_cats template
+        return render_template("edit_cats.j2", data=data, adopter_ids=adopter_data)
+
+    # meat and potatoes of our update functionality
+    if request.method == "POST":
+        # fire off if user clicks the 'Edit Cat' button
+        if request.form.get("Edit_Cat"):
+            # grab user form inputs
+            cat_id = request.form["cat_id"]
+            cat_name = request.form["cat_name"]
+            age_years = request.form["age_years"]
+            weight_lb = request.form["weight_lb"]
+            sex = request.form["sex"]
+            posted_date = request.form["posted_date"]
+            date_vaccinated = request.form["date_vaccinated"]
+            date_neutered = request.form["date_neutered"]
+            date_microchipped = request.form["date_microchipped"]
+            adopter_id = request.form["adopter_id"]
+            date_adopted = request.form["date_adopted"]
+
+            # # account for null age AND homeworld
+            # if (age == "" or age == "None") and homeworld == "0":
+            #     # mySQL query to update the attributes of person with our passed id value
+            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = NULL, bsg_people.age = NULL WHERE bsg_people.id = %s"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (fname, lname, id))
+            #     mysql.connection.commit()
+
+            # # account for null homeworld
+            # elif homeworld == "0":
+            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = NULL, bsg_people.age = %s WHERE bsg_people.id = %s"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (fname, lname, age, id))
+            #     mysql.connection.commit()
+
+            # # account for null age
+            # elif age == "" or age == "None":
+            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = NULL WHERE bsg_people.id = %s"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (fname, lname, homeworld, id))
+            #     mysql.connection.commit()
+
+            # # no null inputs
+            # else:
+            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = %s WHERE bsg_people.id = %s"
+            #     cur = mysql.connection.cursor()
+            #     cur.execute(query, (fname, lname, homeworld, age, id))
+            #     mysql.connection.commit()
+
+
+            #querye = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = %s WHERE bsg_people.id = %s"
+            query = "UPDATE Cats SET cat_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=%s, date_adopted=%s WHERE cat_id =%s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted, cat_id))
+            mysql.connection.commit()
+            
+
+            # redirect back to cats page after we execute the update query
+            return redirect("/cats")
 
 
 # Listener
