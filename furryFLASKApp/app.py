@@ -60,43 +60,81 @@ def dogs():
             adopter_id = request.form["adopter_id"]
             date_adopted = request.form["date_adopted"]
 
-            ###################################
-            ##########Some conditional for null values ##############
-            ###################################
-            # # account for null age AND homeworld
-            # if age == "" and homeworld == "0":
-            #     # mySQL query to insert a new person into bsg_people with our form inputs
-            #     query = "INSERT INTO bsg_people (fname, lname) VALUES (%s, %s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname))
-            #     mysql.connection.commit()
+            #########################################################################################
+            # data_dogs = {}   # holds dogs data 
 
-            # # account for null homeworld
-            # elif homeworld == "0":
-            #     query = "INSERT INTO bsg_people (fname, lname, age) VALUES (%s, %s,%s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, age))
-            #     mysql.connection.commit()
+            # # request.form.items will get all the values from the form and reurns to dictionary
+            # for key, value in request.form.items():  
+            #     if value == '' or value == 0:
+            #         data_dogs[key] = None
+            #     else: 
+            #         data_dogs[key] = value
 
-            # # account for null age
-            # elif age == "":
-            #     query = "INSERT INTO bsg_people (fname, lname, homeworld) VALUES (%s, %s,%s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, homeworld))
-            #     mysql.connection.commit()
+            # # insertin values to Dogs table  
+            # add_dogs = ("INSERT INTO Dogs "
+            #   "(dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) "
+            #   "VALUES (%(dog_name)s, %(age_years)s,%(weight_lb)s,%(sex)s, %(posted_date)s, %(date_vaccinated)s,%(date_neutered)s,%(date_microchipped)s, %(adopter_id)s, %(date_adopted)s)")  
+            # cur = mysql.connection.cursor()
+            # cur.execute(add_dogs, data_dogs)
+            # mysql.connection.commit()   
+            ##########################################################################################
 
-            # # no null inputs
-            # else:
-            #     query = "INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES (%s, %s,%s,%s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, homeworld, age))
-            #     mysql.connection.commit()
 
+            # # null values input for these fields
+            if date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="" and date_vaccinated=="" and posted_date=="":
+
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex) VALUES (%s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex))
+                mysql.connection.commit()    
+
+            elif date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="" and date_vaccinated=="":  
+
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date) VALUES (%s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date))
+                mysql.connection.commit()
+
+            elif date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="":    
+
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated) VALUES (%s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated))
+                mysql.connection.commit()           
+
+
+            elif date_adopted=="" and adopter_id=="0" and date_microchipped=="":           
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered))
+                mysql.connection.commit()  
+
+            elif date_adopted=="" and adopter_id=="0": 
+                # there would not be a case only date_adopted is null or adopter_id is null,  those 2 are together          
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped))
+                mysql.connection.commit()  
+
+           
+            else:
             # example as no null inputs
-            query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
-            mysql.connection.commit()          
+                query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
+                mysql.connection.commit()          
+
+
+            #run query getting the attributed from the data dictionary
+            # query = "INSERT INTO Dogs (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+            # cur = mysql.connection.cursor()
+            # cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
+            # mysql.connection.commit()  
 
 
             # redirect back to people page
@@ -177,6 +215,29 @@ def edit_dogs(dog_id):
             adopter_id = request.form["adopter_id"]
             date_adopted = request.form["date_adopted"]
 
+            # null values input for these fields
+            if (date_adopted=="" or date_adopted==None) and adopter_id=="0": 
+                # there would not be a case only date_adopted is null or adopter_id is null,  those 2 are together          
+                # mySQL query to insert a new dog into Dogs with form inputs
+                query = "UPDATE Dogs SET dog_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=NULL, date_adopted=NULL WHERE dog_id =%s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, dog_id))
+                mysql.connection.commit()    
+
+            elif adopter_id=="0":
+                query = "UPDATE Dogs SET dog_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=NULL, date_adopted=%s WHERE dog_id =%s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, date_adopted, dog_id))
+                mysql.connection.commit() 
+
+            else:
+            # example as no null inputs
+                query = "UPDATE Dogs SET dog_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=%s, date_adopted=%s WHERE dog_id =%s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted, dog_id))
+                mysql.connection.commit()        
+
+
             # # account for null age AND homeworld
             # if (age == "" or age == "None") and homeworld == "0":
             #     # mySQL query to update the attributes of person with our passed id value
@@ -208,10 +269,10 @@ def edit_dogs(dog_id):
 
 
             #querye = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = %s WHERE bsg_people.id = %s"
-            query = "UPDATE Dogs SET dog_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=%s, date_adopted=%s WHERE dog_id =%s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted, dog_id))
-            mysql.connection.commit()
+            # query = "UPDATE Dogs SET dog_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=%s, date_adopted=%s WHERE dog_id =%s"
+            # cur = mysql.connection.cursor()
+            # cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted, dog_id))
+            # mysql.connection.commit()
             
 
             # redirect back to dogs page after we execute the update query
@@ -221,4 +282,4 @@ def edit_dogs(dog_id):
 # Listener
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65329, debug=True)
+    app.run(port=65328, debug=True)
