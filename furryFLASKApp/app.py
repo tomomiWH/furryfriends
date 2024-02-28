@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username 
+app.config['MYSQL_USER'] = 'cs340_sunyus'  #osu username
+app.config['MYSQL_PASSWORD'] = '8409'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_sunyus'    #osu username 
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -289,7 +289,6 @@ def cats():
         # fire off if user presses the Add Cat button
         if request.form.get("Add_Cat"):
             # grab user form inputs
-
             cat_name = request.form["cat_name"]
             age_years = request.form["age_years"]
             weight_lb = request.form["weight_lb"]
@@ -318,10 +317,10 @@ def cats():
             #     mysql.connection.commit()
 
             # else:
-            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+            query = "INSERT INTO Cat (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
             cur = mysql.connection.cursor()
             cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
-            mysql.connection.commit()         
+            mysql.connection.commit()       
 
             # redirect back to people page
             return redirect("/cats")
