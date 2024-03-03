@@ -1,0 +1,152 @@
+<html>
+<!-- Adapted from the people.html UI design and people.j2 design-->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Adopters</title>
+	<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript">
+	function showform(dowhat) {
+		/*
+		 * four DIVS: browse, insert, update, delete
+		 * this function sets one visible the others not
+		 */
+		if(dowhat == 'insert') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'update') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'delete') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'block';
+		} else if(dowhat == 'all') {
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'block';
+		} else { //by default display browse
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		}
+	}
+
+	function newAdopter() {
+		showform('insert');
+	}
+
+	function updateAdopter(adopter_id) {
+		showform('update');
+	}
+
+	function deleteAdopter(adopter_id) {
+		showform('delete');
+	}
+
+	function browseAdopters() {
+		showform('browse');
+	}
+
+	function showAll() {
+		showform('all');
+	}
+	</script>
+</head>
+
+<body onload="browseAdopters()">
+	<h1>Adopters</h1>
+	
+    <!-- nav menue bar -->
+	<nav class ="global">
+     <a href="index">Home</a> <a href="adopters">Adopters</a> <a href="breeds">Breeds</a> <a href="dogs">Dogs</a> <a href="dogsbreedrecords">Dogs Breed Records</a> <a href="cats">Cats</a> <a href="catsbreedrecords">Cats Breed Records</a> 
+     </nav>
+
+	<div id="browse">
+		<p><a href="#" onClick="newAdopter()">Add New Adopter</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+					    
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our edit/delete buttons if there are time to implement edit/delete for Adopters  -->
+						    <!--<td><a href="edit_adopters/{{item.adopter_id}}" class="btn btn-default">Edit</a></td>-->
+						    <!--<td><a href="delete_adopters/{{item.adopter_id}}" class="btn btn-default">Delete</a></td>-->
+
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into Adopters table-->
+		<form id="insertAdopter" action="/adopters" method="post">
+			<legend><strong>Add Adopter</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="first_name">First Name:</label>
+				<input type="text" class="form-control" id="first_name" name="first_name" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+				<label for="last_name">Last Name:</label>
+				<input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z]{1,}" placeholder=""  required>
+
+				<label for="street_address">Street Address</label>
+				<input type="text" class="form-control" id="street_address" name="street_address" placeholder=""  required>
+
+				<label for="apt_suite_other">Apt Suite City:</label>
+				<input type="text" class="form-control" id="apt_suite_other" name="apt_suite_other" placeholder="">
+
+				<label for="city">City:</label>
+				<input type="text" class="form-control" id="city" name="city" placeholder=""  required>	
+
+				<label for="state">State (2 letters):</label>
+				<input type="text" class="form-control" id="state" name="state" placeholder=""  required>				
+
+				<label for="zip">Zip:</label>
+				<input  type="text" class="form-control" id="zip" name="zip" pattern="^\d{5}(-\d{4})?$"  placeholder=""  required>	
+
+				<label for="phone">Phone:</label>
+				<input  type="tel" class="form-control" id="phone" name="phone"  placeholder=""  required>	
+
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$" placeholder=""> 
+            </fieldset>
+
+            <!-- Create 'Add Adopters' and 'Cancel' buttons -->
+			<input type="submit" value="Add Adopter" name="Add_Adopter" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseAdopters()"> 
+        </form>
+	</div><!--insert-->
+	
+</body>
+</html>

@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_s'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username 
+app.config['MYSQL_USER'] = 'cs340_watantom'  #osu username
+app.config['MYSQL_PASSWORD'] = '1710'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_watantom'    #osu username 
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -39,6 +39,49 @@ def home():
 @app.route("/index", methods=["POST", "GET"])
 def index():
     return render_template("index.j2")
+
+# route for adopters page
+@app.route("/adopters", methods=["POST", "GET"])
+def adopters():
+    # Separate out the request methods, in this case this is for a POST
+    # insert a adopter into the Adopters entity
+    if request.method == "POST":
+        # fire off if user presses the Add Adopter button
+        if request.form.get("Add_Adopter"):
+            # grab user form inputs
+            first_name = request.form["first_name"]
+            last_name = request.form["last_name"]
+            street_address = request.form["street_address"]
+            apt_suite_other = request.form["apt_suite_other"]
+            city = request.form["city"]
+            state = request.form["state"]
+            zip = request.form["zip"]
+            phone = request.form["phone"]
+            email = request.form["email"]
+
+            #run query getting the attributed from the data dictionary
+            query = "INSERT INTO Adopters(first_name, last_name, street_address, apt_suite_other, city, state, zip, phone, email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (first_name, last_name, street_address, apt_suite_other, city, state, zip, phone, email))
+            mysql.connection.commit()  
+
+            # redirect back to adopters page
+            return redirect("/adopters")
+        
+
+    # Grab Adopters table data so we send it to our template to display
+    if request.method == "GET":
+        # mySQL query to grab all the adopers in Adopters table
+        ###################################################
+        query = "SELECT * FROM Adopters"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        # render edit_dogs page passing our query data and adopter_data to the edit_dogs template
+        return render_template("adopters.j2", data=data)
+
+
 
 # route for dogs page
 @app.route("/dogs", methods=["POST", "GET"])
@@ -137,7 +180,7 @@ def dogs():
             # mysql.connection.commit()  
 
 
-            # redirect back to people page
+            # redirect back to dogs page
             return redirect("/dogs")
 
     # Grab Dogs table data so we send it to our template to display
@@ -162,8 +205,8 @@ def dogs():
         return render_template("dogs.j2", data=data, adopter_ids=adopter_data)
 
 
-# route for delete functionality, deleting a person from bsg_people,
-# we want to pass the 'id' value of that person on button click (see HTML) via the route
+# route for delete functionality, deleting a dog from Dogs table,
+# we want to pass the 'id' value of that dog  on button click (see HTML) via the route
 @app.route("/delete_dogs/<int:dog_id>")
 def delete_dogs(dog_id):
     # mySQL query to delete the person with our passed id
@@ -173,12 +216,12 @@ def delete_dogs(dog_id):
     cur.execute(query, (dog_id,))
     mysql.connection.commit()
 
-    # redirect back to people page
+    # redirect back to dog page
     return redirect("/dogs")
 
 
-# route for edit functionality, updating the attributes of a person in bsg_people
-# similar to our delete route, we want to the pass the 'id' value of that person on button click (see HTML) via the route
+# route for edit functionality, updating the attributes of a dog in Dogs table
+# similar to our delete route, we want to the pass the 'id' value of that dog on button click (see HTML) via the route
 @app.route("/edit_dogs/<int:dog_id>", methods=["POST", "GET"])
 def edit_dogs(dog_id):
     if request.method == "GET":
@@ -274,11 +317,119 @@ def edit_dogs(dog_id):
             # cur.execute(query, (dog_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted, dog_id))
             # mysql.connection.commit()
             
-
             # redirect back to dogs page after we execute the update query
             return redirect("/dogs")
 
 
+# route for dogs_breed_records page
+@app.route("/dogs_breed_records", methods=["POST", "GET"])
+def dogs_breed_records():
+    # Separate out the request methods, in this case this is for a POST
+    # insert a dogs breed records into the Dogs Breed Records entity
+    if request.method == "POST":
+        # fire off if user presses the Add_Dogs_Breed_Records button
+        if request.form.get("Add_Dogs_Breed_Records"):
+            # grab user form inputs
+            breed_id = request.form["breed_id"]
+            dog_id = request.form["dog_id"]
+
+            #run query getting the attributed from the data dictionary
+            query = "INSERT INTO Dogs_Breed_Records(breed_id, dog_id) VALUES (%s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (breed_id, dog_id))
+            mysql.connection.commit()  
+
+            # redirect back to dogs_breed_records page
+            return redirect("/dogs_breed_records")
+        
+
+    # Grab Dogs_Breed_Records table data so we send it to our template to display
+    if request.method == "GET":
+        # mySQL query to grab all the dog breed in Dogs_Breed_Records table
+        ###################################################
+        query = "SELECT Dogs_Breed_Records.dog_breed_record_id,  Breeds.breed_name AS breedName, Dogs.dog_name AS dogName FROM Dogs_Breed_Records INNER JOIN Breeds ON Breeds.breed_id = Dogs_Breed_Records.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        # mySQL query to grab breed_id/breed_name data for our dropdown
+        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        breed_data = cur.fetchall()
+
+        # mySQL query to grab dog_id/dog_name data for our dropdown
+        query3 = "SELECT dog_id, dog_name AS dogName FROM Dogs"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        dog_data = cur.fetchall()
+
+        # render edit_dogs page passing our query data and adopter_data to the edit_dogs template
+        return render_template("dogs_breed_records.j2", data=data, breed_ids=breed_data, dog_ids=dog_data)
+
+# route for delete functionality, deleting a person from dogs breed records table
+# pass the 'id' value of that dog breed record id on button click (see HTML) vi the route
+@app.route("/delete_dogs_breed_records/<int:dog_breed_record_id>")
+def delete_dogs_breed_records(dog_breed_record_id):
+    # mySQL query to delete the dog breed record with passed in id
+    query = "DELETE FROM Dogs_Breed_Records WHERE Dogs_Breed_Records.dog_breed_record_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (dog_breed_record_id,))
+    mysql.connection.commit()
+
+    # redirect back to dogs_breed_records page
+    return redirect("/dogs_breed_records")
+
+# rounte for edit dogs breed records functionality, updating the attributes of a dog breed in Dogs_Breed_Records table
+# similar to delete route, pass the 'id' value of that dog breed record on button click 
+@app.route("/edit_dogs_breed_records/<int:dog_breed_record_id>", methods=["POST", "GET"])
+def edit_dogs_breed_records(dog_breed_record_id):
+    if request.method == "GET":
+        # mySQL query to grab the infor of the dog breed record with passed in id
+        query = "SELECT * FROM Dogs_Breed_Records WHERE Dogs_Breed_Records.dog_breed_record_id = %s" % (dog_breed_record_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        # mySQL query to grab dog breed record id and name data for dropdown
+        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        breed_data = cur.fetchall()
+
+        # mySQL query to grab dog breed record id and name data for dropdown
+        query3 = "SELECT dog_id, dog_name AS dogName FROM Dogs"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        dog_data = cur.fetchall() 
+
+        # render edit_dogs page passing our query data and adopter data to the edit_dogs template
+        return render_template("edit_dogs_breed_records.j2", data=data, breed_ids=breed_data, dog_ids=dog_data)
+
+
+    # meat and potatoes of our update functionality
+    if request.method == "POST":
+        # fire off if user clicks the 'Edit Dog Breed Record' button 
+        if request.form.get("Edit_Dog_Breed_Record"):
+            # grab user form inputs
+            dog_breed_record_id = request.form["dog_breed_record_id"]
+            breed_id = request.form["breed_id"]
+            dog_id = request.form["dog_id"]
+
+            # # null values input for these fields or Edit Dog Breed Record dropdowns
+            ################
+   
+             
+            query = "UPDATE Dogs_Breed_Records SET breed_id=%s, dog_id=%s WHERE dog_breed_record_id =%s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (breed_id, dog_id, dog_breed_record_id))
+            mysql.connection.commit() 
+
+            return redirect("/dogs_breed_records")
+
+
+
+#################################################################################################
 
 # route for  page
 @app.route("/cats", methods=["POST", "GET"])
@@ -437,4 +588,4 @@ def edit_cats(cat_id):
 # Listener
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65328, debug=True)
+    app.run(port=65314, debug=True)

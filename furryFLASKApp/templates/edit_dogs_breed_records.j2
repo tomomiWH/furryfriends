@@ -1,0 +1,87 @@
+<html>
+<!-- Adapted from the edit_people.j2 -->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Edit Dogs Breed Records</title>
+    <link href="static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Dogs Breed Records: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in dogs breed records-->
+            <form id="editDogBreedRecord" action="/edit_dogs_breed_records/{{data[0].dog_breed_record_id}}" method="post">
+
+                <legend><strong>Edit Dog Breed Record</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of dog to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the dog we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].dog_breed_record_id}}" class="form-control" id="dog_breed_record_id" name="dog_breed_record_id" required>
+
+                    <label for="breed_id">breed_id:</label>
+                    <select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
+                        <!-- Access our breed_id tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for breed_id in breed_ids %}
+                                <!-- If the value iterated breed_id matches the value of the breed_id of dog breed currently Editing, pre-select that option -->
+                                {% if breed_id['breed_id'] == data[0].breed_id %}
+                                    <option value="{{ breed_id['breed_id'] }}" selected> {{breed_id['breedName']}}</option>
+                                {% else %}
+                                    <option value="{{ breed_id['breed_id'] }}"> {{breed_id['breedName']}}</option> 
+                                {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
+                    <label for="dog_id">dog_id:</label>
+                    <select class="form-control" id="dog_id" name="dog_id" pattern="[0-4]{1}" placeholder="" > 
+                        <!-- Access our dog_id tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for dog_id in dog_ids %}
+                                <!-- If the value iterated dog_id matches the value of the dog_id of dog breed currently Editing, pre-select that option -->
+                                {% if dog_id['dog_id'] == data[0].dog_id %}
+                                    <option value="{{ dog_id['dog_id'] }}" selected> {{dog_id['dogName']}}</option>
+                                {% else %}
+                                    <option value="{{ dog_id['dog_id'] }}"> {{dog_id['dogName']}}</option> 
+                                {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
+                </fieldset>
+                <input type="submit" value="Edit Dog Breed Record" name="Edit_Dog_Breed_Record" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/dogs_breed_records'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>
