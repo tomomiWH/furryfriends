@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username
+app.config['MYSQL_USER'] = 'cs340_sunyus'  #osu username
+app.config['MYSQL_PASSWORD'] = '8409'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_sunyus'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -504,7 +504,7 @@ def cats():
     # Grab bsg_people data so we send it to our template to display
     if request.method == "GET":
         cur = mysql.connection.cursor()
-        query = "SELECT * FROM Cats"
+        query = "SELECT cat_id, cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, CONCAT(Adopters.first_name, ' ', Adopters.last_name) AS adopter_id, date_adopted FROM Cats LEFT JOIN Adopters ON Adopters.adopter_id =Cats.adopter_id"
         cur.execute(query)
         data = cur.fetchall()  # Fetch all cat data
 
