@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_s'  #osu username
+app.config['MYSQL_USER'] = 'cs340_'  #osu username
 app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
 app.config['MYSQL_DB'] = 'cs340_'    #osu username 
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
@@ -301,29 +301,54 @@ def cats():
             date_adopted = request.form["date_adopted"]
 
 
-            # account for null age AND homeworld
-            # if adopter_id == "0" and date_adopted == "":
-            #     # mySQL query to insert a new person into bsg_people with our form inputs
-            #     query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped))
-            #     mysql.connection.commit()
+        if date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="" and date_vaccinated=="" and posted_date=="":
 
-            # # account for null homeworld
-            # elif date_vaccinated== "":
-            #     query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_neutered, date_microchipped, adopter_id, date_adopted))
-            #     mysql.connection.commit()
+            # mySQL query to insert a new cat into Cats with form inputs
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex) VALUES (%s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex))
+            mysql.connection.commit()    
 
-            # else:
-            query = "INSERT INTO Cat (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+        elif date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="" and date_vaccinated=="":  
+
+            # mySQL query to insert a new cat into Cats with form inputs
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date) VALUES (%s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date))
+            mysql.connection.commit()
+
+        elif date_adopted=="" and adopter_id=="0" and date_microchipped=="" and date_neutered=="":    
+
+            # mySQL query to insert a new cat into Cats with form inputs
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated) VALUES (%s, %s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated))
+            mysql.connection.commit()           
+
+
+        elif date_adopted=="" and adopter_id=="0" and date_microchipped=="":           
+            # mySQL query to insert a new cat into Cats with form inputs
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered))
+            mysql.connection.commit()  
+
+        elif date_adopted=="" and adopter_id=="0": 
+            # there would not be a case only date_adopted is null or adopter_id is null,  those 2 are together          
+            # mySQL query to insert a new cat into Cats with form inputs
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped))
+            mysql.connection.commit()  
+
+        else:
+            query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
             cur = mysql.connection.cursor()
             cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted))
             mysql.connection.commit()       
 
-            # redirect back to people page
-            return redirect("/cats")
+        # redirect back to people page
+        return redirect("/cats")
 
     # Grab bsg_people data so we send it to our template to display
     if request.method == "GET":
@@ -393,36 +418,6 @@ def edit_cats(cat_id):
             adopter_id = request.form["adopter_id"]
             date_adopted = request.form["date_adopted"]
 
-            # # account for null age AND homeworld
-            # if (age == "" or age == "None") and homeworld == "0":
-            #     # mySQL query to update the attributes of person with our passed id value
-            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = NULL, bsg_people.age = NULL WHERE bsg_people.id = %s"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, id))
-            #     mysql.connection.commit()
-
-            # # account for null homeworld
-            # elif homeworld == "0":
-            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = NULL, bsg_people.age = %s WHERE bsg_people.id = %s"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, age, id))
-            #     mysql.connection.commit()
-
-            # # account for null age
-            # elif age == "" or age == "None":
-            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = NULL WHERE bsg_people.id = %s"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, homeworld, id))
-            #     mysql.connection.commit()
-
-            # # no null inputs
-            # else:
-            #     query = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = %s WHERE bsg_people.id = %s"
-            #     cur = mysql.connection.cursor()
-            #     cur.execute(query, (fname, lname, homeworld, age, id))
-            #     mysql.connection.commit()
-
-
             #querye = "UPDATE bsg_people SET bsg_people.fname = %s, bsg_people.lname = %s, bsg_people.homeworld = %s, bsg_people.age = %s WHERE bsg_people.id = %s"
             query = "UPDATE Cats SET cat_name=%s,  age_years=%s, weight_lb=%s, sex=%s, posted_date=%s, date_vaccinated=%s, date_neutered=%s, date_microchipped=%s, adopter_id=%s, date_adopted=%s WHERE cat_id =%s"
             cur = mysql.connection.cursor()
@@ -437,4 +432,4 @@ def edit_cats(cat_id):
 # Listener
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65328, debug=True)
+    app.run(port=65327, debug=True)
