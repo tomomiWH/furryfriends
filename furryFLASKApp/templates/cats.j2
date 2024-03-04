@@ -3,6 +3,7 @@
 <head>
   <title>Cats</title>
   <link href="static/css/style.css" rel="stylesheet" type="text/css" />
+  
   <script language="JavaScript">
     /*
     * four DIVS: browse, insert, update, delete
@@ -47,10 +48,11 @@
     function browseCats() { showform('browse'); }
     function showAll() { showform('all'); }
   </script>
-  <link rel="cat-icon" sizes="50x50" href="icons8-cat-bubbles/icons8-cat-50.png">
+  {# <link rel="cat-icon" sizes="50x50" href="{{furryfriends/icons8-cat-bubbles/icons8-cat-50.png}}"> #}
 </head>
 
 <body onload="browseCats()">
+{# <link href="static/imges/icons8-cat-bubbles" rel="cat-icon"/> #}
   <h1>Cats</h1>
 
   <!-- nav menue bar -->
@@ -114,7 +116,7 @@
 				<label for="weight_lb">weight_lb:</label>
 				<input type="number" class="form-control" id="weight_lb" name="weight_lb" pattern="[A-Za-z]{1,}" placeholder="" min="0" required>
 
-                <label for="sex">sex M&#47F:</label>
+                <label for="sex">sex:</label>
 				<input type="text" class="form-control" id="sex" name="sex" pattern="[A-Za-z]{1,}" placeholder="" required>
 
                 <label for="posted_date">posted_date:</label>

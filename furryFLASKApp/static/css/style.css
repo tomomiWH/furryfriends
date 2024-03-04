@@ -95,31 +95,3 @@
   
 
   
-  /*  ----- Classes for alignment, positioning, widths, grids, embellishments, and animation -----  */
-  .gallery {
-    display: flex;
-    flex-flow: row wrap;
-    margin:0; 
-    padding:0;
-    justify-content: center;
-  }
-  .gallery figure {
-    width: 320px;
-    margin:1%;
-    padding:1%;
-  }
-
-  .gallery figcaption {
-    display:block; 
-    padding: 1% 1% 2% 1%;
-    text-align: center;
-  }
-
-  .gallery img {
-    height: 400px;
-    width: 300px;
-    margin:0;
-    padding:0;
-  }
-  
-  
