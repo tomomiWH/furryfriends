@@ -1,0 +1,87 @@
+<html>
+<!-- Adapted from the edit_people.j2 -->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Edit Cats Breed Records</title>
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1><img src="../static/imges/icons8-cat-bubbles/icons8-cat-50.png"> Cats Breed Record</h1>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in cats breed records-->
+            <form id="editCatBreedRecord" action="/edit_cats_breed_records/{{data[0].cat_breed_record_id}}" method="post">
+
+                <legend><strong>Edit Cat Breed Record</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of cat to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the cat we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].cat_breed_record_id}}" class="form-control" id="cat_breed_record_id" name="cat_breed_record_id" required>
+
+                    <label for="breed_id">breed_id:</label>
+                    <select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
+                        <!-- Access our breed_id tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for breed_id in breed_ids %}
+                                <!-- If the value iterated breed_id matches the value of the breed_id of cat breed currently Editing, pre-select that option -->
+                                {% if breed_id['breed_id'] == data[0].breed_id %}
+                                    <option value="{{ breed_id['breed_id'] }}" selected> {{breed_id['breedName']}}</option>
+                                {% else %}
+                                    <option value="{{ breed_id['breed_id'] }}"> {{breed_id['breedName']}}</option> 
+                                {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
+                    <label for="cat_id">cat_id:</label>
+                    <select class="form-control" id="cat_id" name="catg_id" pattern="[0-4]{1}" placeholder="" > 
+                        <!-- Access our cat_id tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for cat_id in cat_ids %}
+                                <!-- If the value iterated cat_id matches the value of the cat_id of cat breed currently Editing, pre-select that option -->
+                                {% if cat_id['cat_id'] == data[0].cat_id %}
+                                    <option value="{{ cat_id['cat_id'] }}" selected> {{cat_id['catName']}}</option>
+                                {% else %}
+                                    <option value="{{ cat_id['cat_id'] }}"> {{cat_id['catName']}}</option> 
+                                {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
+                </fieldset>
+                <input type="submit" value="Edit Cat Breed Record" name="Edit_Cat_Breed_Record" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/cats_breed_records'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

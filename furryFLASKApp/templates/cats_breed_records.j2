@@ -1,0 +1,159 @@
+<html>
+<!-- Adapted from the people.html UI design and people.j2 design-->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Cats Breed Records</title>
+	<link href="static/css/style.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript">
+	function showform(dowhat) {
+		/*
+		 * four DIVS: browse, insert, update, delete
+		 * this function sets one visible the others not
+		 */
+		if(dowhat == 'insert') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'update') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'none';
+		} else if(dowhat == 'delete') {
+			document.getElementById('browse').style.display = 'none';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'block';
+		} else if(dowhat == 'all') {
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'block';
+			document.getElementById('edit').style.display = 'block';
+			document.getElementById('delete').style.display = 'block';
+		} else { //by default display browse
+			document.getElementById('browse').style.display = 'block';
+			document.getElementById('insert').style.display = 'none';
+			document.getElementById('edit').style.display = 'none';
+			document.getElementById('delete').style.display = 'none';
+		}
+	}
+
+	function newCatBreedRecord() {
+		showform('insert');
+	}
+
+	function updateCatBreedRecord(cat_breed_record_id) {
+		showform('update');
+	}
+
+	function deleteCatBreedRecord(cat_breed_record_id) {
+		showform('delete');
+	}
+
+	function browseCatsBreedRecords() {
+		showform('browse');
+	}
+
+	function showAll() {
+		showform('all');
+	}
+	</script>
+</head>
+
+<body onload="browseCatsBreedRecords()">
+	<h1><img src="./static/imges/icons8-cat-bubbles/icons8-cat-50.png">Cats Breed Records</h1>
+	
+    <!-- nav menue bar -->
+	<nav class ="global">
+     <a href="index">Home</a> <a href="adopters">Adopters</a> <a href="breeds">Breeds</a> <a href="dogs">Dogs</a> <a href="dogs_breed_records">Dogs Breed Records</a> <a href="cats">Cats</a> <a href="cats_breed_records">Cats Breed Records</a> 
+     </nav>
+
+	<div id="browse">
+		<p><a href="#" onClick="newCatBreedRecord()">Add New Cats Breed Records</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+					    
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our edit/delete buttons -->
+						    <td><a href="edit_cats_breed_records/{{item.cat_breed_record_id}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_cats_breed_records/{{item.cat_breed_record_id}}" class="btn btn-default">Delete</a></td>
+
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into Cats Breed Records table-->
+		<form id="insertCatBreedRecord" action="/cats_breed_records" method="post">
+			<legend><strong>Add Cats Breed Records</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+
+				<label for="breed_id">breed_id:</label>
+				<select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
+					<!-- Access our breed_id tuple passed from app.py-->
+					<option value="0">&nbsp;</option>
+					{% for breed_id in breed_ids %}
+							<!-- If the value iterated breed_id matches the value of the breed_id of cat currently Editing, pre-select that option -->
+							{% if breed_id['breed_id'] == data[0].breed_id %}
+								<option value="{{ breed_id['breed_id'] }}" selected> {{breed_id['breedName']}}</option>
+							{% else %}
+								<option value="{{ breed_id['breed_id'] }}"> {{breed_id['breedName']}}</option> 
+							{% endif %}
+					<!-- End of this for loop -->
+					{% endfor %} 
+				</select>
+
+                <label for="cat_id">cat_id:</label>
+				<select class="form-control" id="cat_id" name="cat_id" pattern="[0-4]{1}" placeholder="" > 
+					<!-- Access our cat_id tuple passed from app.py-->
+					<option value="0">&nbsp;</option>
+					{% for cat_id in cat_ids %}
+							<!-- If the value iterated cat_id matches the value of the cat_id of cat currently Editing, pre-select that option -->
+							{% if cat_id['cat_id'] == data[0].cat_id %}
+								<option value="{{ cat_id['cat_id'] }}" selected> {{cat_id['catName']}}</option>
+							{% else %}
+								<option value="{{ cat_id['cat_id'] }}"> {{cat_id['catName']}}</option> 
+							{% endif %}
+					<!-- End of this for loop -->
+					{% endfor %} 
+				</select>
+
+            </fieldset>
+
+            <!-- Create 'Add Cats Breed Records' and 'Cancel' buttons -->
+			<input type="submit" value="Add Cats Breed Records" name="Add_Cats_Breed_Records" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseCatsBreedRecords()"> 
+        </form>
+	</div><!--insert-->
+	
+
+	
+</body>
+</html>
