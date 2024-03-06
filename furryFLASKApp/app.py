@@ -583,4 +583,6 @@ def edit_cats(cat_id):
 # Listener
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65327, debug=True)
+    app.run(port=65326, debug=True)
+
+#host="flip2.engr.oregonstate.edu"
