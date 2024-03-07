@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_sunyus'  #osu username
-app.config['MYSQL_PASSWORD'] = '8409'        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_sunyus'    #osu username
+app.config['MYSQL_USER'] = 'cs340_'  #osu username
+app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -386,7 +386,8 @@ def delete_dogs_breed_records(dog_breed_record_id):
 def edit_dogs_breed_records(dog_breed_record_id):
     if request.method == "GET":
         # mySQL query to grab the infor of the dog breed record with passed in id
-        query = "SELECT * FROM Dogs_Breed_Records WHERE Dogs_Breed_Records.dog_breed_record_id = %s" % (dog_breed_record_id)
+        # query = "SELECT * FROM Dogs_Breed_Records WHERE Dogs_Breed_Records.dog_breed_record_id = %s" % (dog_breed_record_id)
+        query = "SELECT Dogs_Breed_Records.dog_breed_record_id, breed_name, dog_name FROM Dogs_Breed_Records INNER JOIN Breeds ON Dogs_Breed_Records.breed_id = Breeds.breed_id INNER JOIN Dogs ON Dogs_Breed_Records.dog_id = Dogs.dog_id WHERE Dogs_Breed_Records.dog_breed_record_id= %s" % (dog_breed_record_id)
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
