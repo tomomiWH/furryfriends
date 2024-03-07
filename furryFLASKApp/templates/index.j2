@@ -1,58 +1,85 @@
 <!-- Example Code from Canvas is based as template to be consisent through out the pages and we have modifed our code -->
 <html>
+
 <head>
-    <title> FLASK APP Furry Friends Dog and Cats Shelter</title>
-    <link href="static/css/style.css" rel="stylesheet" type="text/css" />
-    <script src='main.js'></script>
-    <link rel="dog-cat-icon" sizes = "48x48" href="icons8-pets-color/icons8-pets-48.png">
+     <title> FLASK APP Furry Friends Dog and Cats Shelter</title>
+     <link href="static/css/style.css" rel="stylesheet" type="text/css" />
+     <script src='main.js'></script>
+     <link rel="dog-cat-icon" sizes="48x48" href="icons8-pets-color/icons8-pets-48.png">
 </head>
 
 <body>
-<h1><img src="static/imges/icons8-pets-color/icons8-pets-48.png"> FLASK APP Furry Friends Dog and Cat Shelter</h1>
+     <h1><img src="static/imges/icons8-pets-color/icons8-pets-48.png"> FLASK APP Furry Friends Dog and Cat Shelter</h1>
 
-<nav class ="global">
-     <a href="index">Home</a> <a href="adopters">Adopters</a> <a href="breeds">Breeds</a> <a href="dogs">Dogs</a> <a href="dogs_breed_records">Dogs Breed Records</a> <a href="cats">Cats</a> <a href="catsbreedrecords">Cats Breed Records</a> 
+     <nav class="global">
+          <a href="index">Home</a> <a href="adopters">Adopters</a> <a href="breeds">Breeds</a> <a href="dogs">Dogs</a>
+          <a href="dogs_breed_records">Dogs Breed Records</a> <a href="cats">Cats</a> <a href="cats_breed_records">Cats
+               Breed Records</a>
      </nav>
-<div id="" style="display: block">
-     <div class="main">
-          <h2>HOME : FLASK APP</h2>
-          <!-- <div class="imgHome" style="height:100px;">Image</div> -->
-          <p>Find your best furry friends Dogs and Cats</p>
-          <br>
+     <div id="" style="display: block">
+          <div class="main">
+               <h2>HOME : FLASK APP</h2>
+               <!-- <div class="imgHome" style="height:100px;">Image</div> -->
+               <h3>Find your best furry friends Dogs and Cats</h3>
+               <h4>Welcome! Furry Friends Dog and Cat Shelter records 290 dogs and cats adopted monthly and approximately 3,500
+                    annually in the ABC region, including adoption events. Furry Friends Dog and Cat Shelter Web App is
+                    a database driven website that stores information about the dogs and cats, such as age, breed,
+                    health information (date of vaccinated, neutered, microchipped), and helps find their new homes.
+                    With a diverse array of 30 breeds represented, ranging from energetic retrievers to gentle
+                    companions, 3,800 potential adopters can view the dogs’ and cats’ profiles to find their best match
+                    and get guidance on caring for their future pets. Furry Friends Dog and Cat Shelter records the dogs
+                    and cats and their new-found owners and keeps track of total adoption and adoption_rate(%) for
+                    annual reports. Previously there has been disorganized data about the dogs’ and cats’ health
+                    information as well as repeat data about the adopters, so when they change their personal
+                    information some does not get changed. With the implementation of the new database system, we will
+                    ensure all information is accurately maintained, and the shelter can run more smoothly.
+               </h4>
 
-          <h5>Adopters : Adopters&#8217s detail contact and adoption information what dog or cat the adopter adopted</h5>
-          <!-- <div class="imgAdopters" style="height:100px;">Image</div> -->
-          <!-- <p>Adopters&#8217s detail contact and adoption information what dog or cat the adopter adopted</p> -->
-          <br>
+               <h4>Note: due to the deisgn of the tables and CRUD operations, when a new cat/dog is added to the database, one or more new breed record needs to be added on a separate page, as well as new breed if necessary.</h4>
+               <br>
 
-          <h3>Dogs : Dogs&#8217 detailed information that arrived in the shelter and when the dog has been adopted</h3>
-          <!-- <div class="imgDogs" style="height:100px;">Image</div> -->
-          <!--<p>Dogs&#8217 detailed information that arrived in the shelter and when the dog has been adopted</p>-->
-          <br>
+               <h3>Adopters : </h3>
+               <p>Adopters&#8217 detail contact and adoption information what dog or cat the adopter adopted - entity table</p>
+               <!-- <div class="imgAdopters" style="height:100px;">Image</div> -->
+               <!-- <p>Adopters&#8217s detail contact and adoption information what dog or cat the adopter adopted</p> -->
+               <br>
 
-          <h5>Dogs Breed Records : Breeds of each dog - intersection table</h5>
-          <!-- <div class="imgDogBreed" style="height:100px;">Image</div> -->
-          <!--<p>Breeds of each dog - intersection table</p>-->
-          <br>
+               <h3>Breeds : </h3>
+               <p>Breeds information of dogs or cats - category table</p>
+               <!-- <div class="imgBreeds" style="height:100px;">Image</div> -->
+               <!--<p>Breeds information of dogs or cats - category table</p>-->
+               <br>
 
-          <h3>Cats : Cats&#8217 detailed information that arrived in the shelter and when the dog has been adopted</h3>
-          <!-- <div class="imgCats" style="height:100px;">Image</div> -->
-          <!--<p>Cats&#8217 detailed information that arrived in the shelter and when the dog has been adopted</p> -->
-          <br>
+               <h3>Dogs : </h3>
+               <p>Dogs&#8217 detailed information that arrived in the shelter and when the dog has been adopted - entity table</p>
+               <!-- <div class="imgDogs" style="height:100px;">Image</div> -->
+               <!--<p>Dogs&#8217 detailed information that arrived in the shelter and when the dog has been adopted</p>-->
+               <br>
 
-          <h5>Cats Breed Records : Breeds of each cat - intersection table</h5>
-          <!-- <div class="imgCatBreed" style="height:100px;">Image</div> -->
-          <!-- <p>Breeds of each cat - intersection table</p> -->
-          <br>
+               <h3>Dogs Breed Records : </h3>
+               <p>Breeds of each dog - intersection table</p>
+               <!-- <div class="imgDogBreed" style="height:100px;">Image</div> -->
+               <!--<p>Breeds of each dog - intersection table</p>-->
+               <br>
 
-          <h5>Breeds : Breeds information of dogs or cats - category table</h5>
-          <!-- <div class="imgBreeds" style="height:100px;">Image</div> -->
-          <!--<p>Breeds information of dogs or cats - category table</p>-->
-          <br>
+               <h3>Cats : </h3>
+               <p>Cats&#8217 detailed information that arrived in the shelter and when the dog has been adopted - entity table</p>
+               <!-- <div class="imgCats" style="height:100px;">Image</div> -->
+               <!--<p>Cats&#8217 detailed information that arrived in the shelter and when the dog has been adopted</p> -->
+               <br>
+
+               <h3>Cats Breed Records : </h3>
+               <p>Breeds of each cat - intersection table</p>
+               <!-- <div class="imgCatBreed" style="height:100px;">Image</div> -->
+               <!-- <p>Breeds of each cat - intersection table</p> -->
+               <br>
+
+
+
+          </div>
 
      </div>
 
-</div>
-
 </body>
+
 </html>

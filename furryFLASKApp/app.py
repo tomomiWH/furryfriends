@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_watantom'  #osu username
-app.config['MYSQL_PASSWORD'] = '1710'        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_watantom'    #osu username
+app.config['MYSQL_USER'] = 'cs340_sunyus'  #osu username
+app.config['MYSQL_PASSWORD'] = '8409'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_sunyus'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -138,6 +138,38 @@ def adopters():
 
 
 
+@app.route("/breeds", methods=["POST", "GET"])
+def breeds():
+    # Separate out the request methods, in this case this is for a POST
+    # insert a breed into the Breeds entity
+    if request.method == "POST":
+        print("add breed working")
+        # fire off if user presses the Add Breed button
+        if request.form.get("Add_Breed"):
+            # grab user form inputs
+            breed_name = request.form["breed_name"]
+            
+            #run query getting the attributed from the data dictionary
+            query = "INSERT INTO Breeds(breed_name) VALUES (%s)"
+            print("insert working")
+            cur = mysql.connection.cursor()
+            cur.execute(query, (breed_name,))
+            mysql.connection.commit()  
+
+            # redirect back to breeds page
+            return redirect("/breeds")
+        
+
+    # Grab Breeds table data so we send it to our template to display
+    if request.method == "GET":
+        # mySQL query to grab all the adopers in Breeds table
+        ###################################################
+        query = "SELECT * FROM Breeds"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("breeds.j2", data=data)
 
 
 # route for dogs page
