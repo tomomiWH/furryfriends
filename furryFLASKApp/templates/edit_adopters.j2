@@ -1,0 +1,86 @@
+<html>
+<!-- Adapted from the edit_people.j2 -->
+<!-- canvas module for learning purpose -->
+<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<head>
+	<title>Edit Adopters</title>
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1><img src="../static/imges/icons8-dog-bubbles/icons8-users-501.png"> Adopters</h1>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Adopters: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in dogs-->
+            <form id="editAdopter" action="/edit_adopters/{{data[0].adopter_id}}" method="post">
+                <legend><strong>Edit Adopter</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of dog to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the dog we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].adopter_id}}" class="form-control" id="adopter_id" name="adopter_id" required>
+                    
+                    <label for="first_name">First Name:</label>
+                    <input type="text" value="{{data[0].first_name}}" class="form-control" id="first_name" name="first_name" pattern="[A-Za-z]{1,}" required>
+
+                    <!-- Change  -->
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" value="{{data[0].last_name}}"  class="form-control" id="last_name" name="last_name" pattern="[A-Za-z]{1,}" placeholder=""  required>
+    
+                    <label for="street_address">Street Address</label>
+                    <input type="text" value="{{data[0].street_address}}" class="form-control" id="street_address" name="street_address" placeholder=""  required>
+    
+                    <label for="apt_suite_other">Apt Suite City:</label>
+                    <input type="text" value="{{data[0].apt_suite_other}}" class="form-control" id="apt_suite_other" name="apt_suite_other" placeholder="">
+    
+                    <label for="city">City:</label>
+                    <input type="text" value="{{data[0].city}}" class="form-control" id="city" name="city" placeholder=""  required>	
+    
+                    <label for="state">State (2 letters):</label>
+                    <input type="text" value="{{data[0].state}}" class="form-control" id="state" name="state" placeholder=""  required>				
+    
+                    <label for="zip">Zip:</label>
+                    <input  type="text" value="{{data[0].zip}}" class="form-control" id="zip" name="zip" pattern="^\d{5}(-\d{4})?$"  placeholder=""  required>	
+    
+                    <label for="phone">Phone:</label>
+                    <input  type="tel" value="{{data[0].phone}}" class="form-control" id="phone" name="phone"  placeholder=""  required>	
+    
+                    <label for="email">Email:</label>
+                    <input type="email" value="{{data[0].email}}" class="form-control" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$" placeholder=""> 
+
+
+                </fieldset>
+                <input type="submit" value="Edit Adopter" name="Edit_Adopter" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/adopters'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

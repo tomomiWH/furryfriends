@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username
+app.config['MYSQL_USER'] = 'cs340_watantom'  #osu username
+app.config['MYSQL_PASSWORD'] = '1710'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_watantom'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -78,8 +78,65 @@ def adopters():
         cur.execute(query)
         data = cur.fetchall()
 
-        # render edit_dogs page passing our query data and adopter_data to the edit_dogs template
+        # render edit_adopters page passing our query data and adopter_data to the edit_adopters template
         return render_template("adopters.j2", data=data)
+
+# route for delete functionality, deleting a dog from Dogs table,
+# we want to pass the 'id' value of that dog on button click (see HTML) via the route
+# @app.route("/delete_adopters/<int:adopter_id>")
+# def delete_adopters(adopter_id):
+#     # mySQL query to delete the adopter with our passed id
+#     #query = "DELETE FROM bsg_people WHERE id = '%s';"
+#     query = "DELETE FROM Adopters WHERE adopter_id = '%s';"
+#     cur = mysql.connection.cursor()
+#     cur.execute(query, (adopter_id,))
+#     mysql.connection.commit()
+
+#     # redirect back to dog page
+#     return redirect("/adopters")
+
+
+# # route for edit functionality, updating the attributes of a adopter in Adopters table
+# # similar to our delete route, we want to the pass the 'id' value of that dog on button click (see HTML) via the route
+# @app.route("/edit_adopters/<int:adopter_id>", methods=["POST", "GET"])
+# def edit_adopters(adopter_id):
+#     if request.method == "GET":
+#         # mySQL query to grab the info of the adopter with our passed id
+#         query = "SELECT * FROM Adopters WHERE adopter_id = %s" % (adopter_id)
+#         cur = mysql.connection.cursor()
+#         cur.execute(query)
+#         data = cur.fetchall()
+
+#         # render edit_adopters page passing our query data and adopter data to the edit_adopters template
+#         return render_template("edit_adopters.j2", data=data)
+
+#     # meat and potatoes of our update functionality
+#     if request.method == "POST":
+#         # fire off if user clicks the 'Edit Adopter' button
+#         if request.form.get("Edit_Adopter"):
+#             # grab user form inputs
+#             adopter_id = request.form["adopter_id"]
+#             first_name = request.form["first_name"]
+#             last_name = request.form["last_name"]
+#             street_address = request.form["street_address"]
+#             apt_suite_other = request.form["apt_suite_other"]
+#             city = request.form["city"]
+#             state = request.form["state"]
+#             zip = request.form["zip"]
+#             phone = request.form["phone"]
+#             email = request.form["email"]
+
+#             # null values input for these fields
+
+#             query = "UPDATE Adopters SET first_name=%s,  last_name=%s, street_address=%s, apt_suite_other=%s, city=%s, state=%s, zip=%s, phone=%s, email=%s WHERE adopter_id =%s"
+#             cur = mysql.connection.cursor()
+#             cur.execute(query, (first_name, last_name, street_address, apt_suite_other, city, state, zip, phone, email, adopter_id))
+#             mysql.connection.commit()
+            
+#             # redirect back to dogs page after we execute the update query
+#             return redirect("/adopters")
+
+
 
 
 
@@ -209,7 +266,7 @@ def dogs():
 # we want to pass the 'id' value of that dog  on button click (see HTML) via the route
 @app.route("/delete_dogs/<int:dog_id>")
 def delete_dogs(dog_id):
-    # mySQL query to delete the person with our passed id
+    # mySQL query to delete the dog with our passed id
     #query = "DELETE FROM bsg_people WHERE id = '%s';"
     query = "DELETE FROM Dogs WHERE dog_id = '%s';"
     cur = mysql.connection.cursor()
@@ -694,6 +751,6 @@ def edit_cats_breed_records(cat_breed_record_id):
 # Listener 
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65326, debug=True)
+    app.run(port=65315, debug=True)
 
 #host="flip2.engr.oregonstate.edu"
