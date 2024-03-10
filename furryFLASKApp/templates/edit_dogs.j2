@@ -78,7 +78,7 @@
                     <label for="adopter_id">adopter_id:</label>
                     <select class="form-control" id="adopter_id" name="adopter_id" pattern="[0-4]{1}" placeholder="" > 
                         <!-- Access our adopter_id tuple passed from app.py-->
-                        <option value="0">&nbsp;</option>
+                        <option value="0">&nbsp;- Select -</option>
                         {% for adopter_id in adopter_ids %}
                                 <!-- If the value iterated adopter_id matches the value of the adopter_id of dog currently Editing, pre-select that option -->
                                 {% if adopter_id['adopter_id'] == data[0].adopter_id %}

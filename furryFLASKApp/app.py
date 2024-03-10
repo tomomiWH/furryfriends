@@ -28,12 +28,12 @@ mysql = MySQL(app)
 
 # Routes
 # have homepage route to /people by default for convenience, generally this will be your home route with its own template
-@app.route("/")
-def home():
-    return redirect("/dogs")
 # @app.route("/")
 # def home():
-#     return redirect("/index")
+#     return redirect("/dogs")
+@app.route("/")
+def home():
+    return redirect("/index")
 
 # route to home page index
 @app.route("/index", methods=["POST", "GET"])
@@ -443,6 +443,7 @@ def dogs_breed_records():
 
         # mySQL query to grab breed_id/breed_name data for our dropdown
         query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        # query2 = "SELECT Breeds.breed_id, breed_name AS breedName FROM Breeds"    # shwo all Breeds 
         cur = mysql.connection.cursor()
         cur.execute(query2)
         breed_data = cur.fetchall()
@@ -481,9 +482,16 @@ def edit_dogs_breed_records(dog_breed_record_id):
         cur.execute(query)
         data = cur.fetchall()
 
+        ## breed_id and dog_ied to pass for dropdown to be selected 
+        queryDD = "SELECT Dogs_Breed_Records.dog_breed_record_id, Breeds.breed_id, Dogs.dog_id FROM Dogs_Breed_Records INNER JOIN Breeds ON Dogs_Breed_Records.breed_id = Breeds.breed_id INNER JOIN Dogs ON Dogs_Breed_Records.dog_id = Dogs.dog_id WHERE Dogs_Breed_Records.dog_breed_record_id= %s" % (dog_breed_record_id)
+        cur = mysql.connection.cursor() 
+        cur.execute(queryDD)
+        breed_dog_id = cur.fetchall()
+
         # mySQL query to grab dog breed record id and name data for dropdown
         query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
-        cur = mysql.connection.cursor()
+        # query2 = query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds"   ## Show All Breeds
+        cur = mysql.connection.cursor() 
         cur.execute(query2)
         breed_data = cur.fetchall()
 
@@ -494,7 +502,7 @@ def edit_dogs_breed_records(dog_breed_record_id):
         dog_data = cur.fetchall() 
 
         # render edit_dogs page passing our query data and adopter data to the edit_dogs template
-        return render_template("edit_dogs_breed_records.j2", data=data, breed_ids=breed_data, dog_ids=dog_data)
+        return render_template("edit_dogs_breed_records.j2", data=data, breed_dog_id=breed_dog_id, breed_ids=breed_data, dog_ids=dog_data)
 
 
     # meat and potatoes of our update functionality
@@ -783,6 +791,6 @@ def edit_cats_breed_records(cat_breed_record_id):
 # Listener 
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65315, debug=True)
+    app.run(port=65326, debug=True)
 
 #host="flip2.engr.oregonstate.edu"

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1><img src="../static/imges/icons8-dog-bubbles/icons8-dog-50.png"> Dogs</h1>
+    <h1><img src="../static/imges/icons8-dog-bubbles/icons8-dog-50.png">Edit Dog Breed Record</h1>
     <div>
         <table border="1" cellpadding="5"> 
             <caption> Editing Dogs Breed Records: </caption>
@@ -51,12 +51,13 @@
                     <input type="hidden" value="{{data[0].dog_breed_record_id}}" class="form-control" id="dog_breed_record_id" name="dog_breed_record_id" required>
                     
                     <label for="breed_id">breed_id:</label>
-                    <select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
+                    <!--<select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" >--> 
+                    <select class="form-control" id="breed_id" name="breed_id" pattern="[0-9]+" placeholder="" >
                         <!-- Access our breed_id tuple passed from app.py-->
-                        <option value="0">&nbsp;</option>
+                        <!--<option value="0">&nbsp;</option>-->
                         {% for breed_id in breed_ids %}
                                 <!-- If the value iterated breed_id matches the value of the breed_id of dog breed currently Editing, pre-select that option -->
-                                {% if breed_id['breed_id'] == data[0].breed_id %}
+                                {% if breed_id['breed_id'] == breed_dog_id[0].breed_id %}
                                     <option value="{{ breed_id['breed_id'] }}" selected> {{breed_id['breedName']}}</option>
                                 {% else %}
                                     <option value="{{ breed_id['breed_id'] }}"> {{breed_id['breedName']}}</option> 
@@ -68,10 +69,10 @@
                     <label for="dog_id">dog_id:</label>
                     <select class="form-control" id="dog_id" name="dog_id" pattern="[0-4]{1}" placeholder="" > 
                         <!-- Access our dog_id tuple passed from app.py-->
-                        <option value="0">&nbsp;</option>
+                        <!--<option value="0">&nbsp;</option>-->
                         {% for dog_id in dog_ids %}
                                 <!-- If the value iterated dog_id matches the value of the dog_id of dog breed currently Editing, pre-select that option -->
-                                {% if dog_id['dog_id'] == data[0].dog_id %}
+                                {% if dog_id['dog_id'] == breed_dog_id[0].dog_id %}
                                     <option value="{{ dog_id['dog_id'] }}" selected> {{dog_id['dogName']}}</option>
                                 {% else %}
                                     <option value="{{ dog_id['dog_id'] }}"> {{dog_id['dogName']}}</option> 

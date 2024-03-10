@@ -118,7 +118,7 @@
 				<label for="breed_id">breed_id:</label>
 				<select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
 					<!-- Access our breed_id tuple passed from app.py-->
-					<option value="0">&nbsp;</option>
+					<option value="0">&nbsp;- Select -</option>
 					{% for breed_id in breed_ids %}
 							<!-- If the value iterated breed_id matches the value of the breed_id of dog currently Editing, pre-select that option -->
 							{% if breed_id['breed_id'] == data[0].breed_id %}
@@ -133,7 +133,7 @@
                 <label for="dog_id">dog_id:</label>
 				<select class="form-control" id="dog_id" name="dog_id" pattern="[0-4]{1}" placeholder="" > 
 					<!-- Access our dog_id tuple passed from app.py-->
-					<option value="0">&nbsp;</option>
+					<option value="0">&nbsp; - Select -</option>
 					{% for dog_id in dog_ids %}
 							<!-- If the value iterated dog_id matches the value of the dog_id of dog currently Editing, pre-select that option -->
 							{% if dog_id['dog_id'] == data[0].dog_id %}
