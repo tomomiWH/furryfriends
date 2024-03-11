@@ -703,13 +703,13 @@ def cats_breed_records():
     if request.method == "GET":
         # mySQL query to grab all the cat breed in Cats_Breed_Records table
         ###################################################
-        query = "SELECT Cats_Breed_Records.cat_breed_record_id,  Breeds.breed_name AS breedName, Cats.cat_name AS catName FROM Cats_Breed_Records INNER JOIN Breeds ON Breeds.breed_id = Cats_Breed_Records.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        query = "SELECT Cats_Breed_Records.cat_breed_record_id, Breeds.breed_name AS breedName, Cats.cat_name AS catName FROM Cats_Breed_Records INNER JOIN Breeds ON Breeds.breed_id = Cats_Breed_Records.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
         # mySQL query to grab breed_id/breed_name data for our dropdown
-        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        query2 = "SELECT Breeds.breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         breed_data = cur.fetchall()
@@ -720,8 +720,13 @@ def cats_breed_records():
         cur.execute(query3)
         cat_data = cur.fetchall()
 
+        query4 = "SELECT breed_name from Breeds"
+        cur = mysql.connection.cursor()
+        cur.execute(query4)
+        breeds = cur.fetchall()
+
         # render edit_cats page passing our query data and adopter_data to the edit_cats template
-        return render_template("cats_breed_records.j2", data=data, breed_ids=breed_data, cat_ids=cat_data)
+        return render_template("cats_breed_records.j2", data=data, breed_ids=breed_data, cat_ids=cat_data, breeds=breeds)
 
 # route for delete functionality, deleting a person from cats breed records table
 # pass the 'id' value of that cat breed record id on button click (see HTML) vi the route
@@ -747,6 +752,12 @@ def edit_cats_breed_records(cat_breed_record_id):
         cur.execute(query)
         data = cur.fetchall()
 
+        ## breed_id and cat_ied to pass for dropdown to be selected 
+        queryDD = "SELECT Cats_Breed_Records.cat_breed_record_id, Breeds.breed_id, Cats.cat_id FROM Cats_Breed_Records INNER JOIN Breeds ON Cats_Breed_Records.breed_id = Breeds.breed_id INNER JOIN Cats ON Cats_Breed_Records.cat_id = Cats.cat_id WHERE Cats_Breed_Records.cat_breed_record_id= %s" % (cat_breed_record_id)
+        cur = mysql.connection.cursor() 
+        cur.execute(queryDD)
+        breed_cat_id = cur.fetchall()
+
         # mySQL query to grab cat breed record id and name data for dropdown
         query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
         cur = mysql.connection.cursor()
@@ -760,7 +771,7 @@ def edit_cats_breed_records(cat_breed_record_id):
         cat_data = cur.fetchall() 
 
         # render edit_cats page passing our query data and adopter data to the edit_cats template
-        return render_template("edit_cats_breed_records.j2", data=data, breed_ids=breed_data, cat_ids=cat_data)
+        return render_template("edit_cats_breed_records.j2", data=data, breed_ids=breed_data, cat_ids=cat_data, breed_cat_id=breed_cat_id)
 
 
     # meat and potatoes of our update functionality
