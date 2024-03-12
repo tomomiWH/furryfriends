@@ -81,9 +81,19 @@
 					    
                         <!-- Create a <th> tag with the key inside of it, this will be our header row -->
 					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-					
+
                         <!-- End of this for loop -->
                         {% endfor %} 
+
+						<!-- <th scope="col" data-field="first_name" data-filter-control="input">First Name</th>
+						<th scope="col" data-field="last_name" data-filter-control="input">Last Name</th>
+						<th scope="col" data-field="street_address" data-filter-control="input">Street Address</th>
+						<th scope="col" data-field="apt_suite_other" data-filter-control="input">Apt Suite Other</th>
+						<th scope="col" data-field="city" data-filter-control="input">City</th>
+						<th scope="col" data-field="state" data-filter-control="input">State (2 letters)</th>
+						<th scope="col" data-field="zip" data-filter-control="input">Zip</th>
+						<th scope="col" data-field="phone" data-filter-control="input">Phone</th>
+						<th scope="col" data-field="email" data-filter-control="input">Email</th> -->
                     </tr>
 
 				<tbody>
@@ -120,10 +130,10 @@
 				<label for="last_name">Last Name:</label>
 				<input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z]{1,}" placeholder=""  required>
 
-				<label for="street_address">Street Address</label>
+				<label for="street_address">Street Address:</label>
 				<input type="text" class="form-control" id="street_address" name="street_address" placeholder=""  required>
 
-				<label for="apt_suite_other">Apt Suite City:</label>
+				<label for="apt_suite_other">Apt Suite Other:</label>
 				<input type="text" class="form-control" id="apt_suite_other" name="apt_suite_other" placeholder="">
 
 				<label for="city">City:</label>

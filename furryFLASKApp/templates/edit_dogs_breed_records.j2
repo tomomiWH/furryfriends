@@ -50,7 +50,7 @@
                     <!-- Create hidden form input to store the passed 'id' of the dog we are editing so we can access it easily in our 'POST' method in our app.py -->
                     <input type="hidden" value="{{data[0].dog_breed_record_id}}" class="form-control" id="dog_breed_record_id" name="dog_breed_record_id" required>
                     
-                    <label for="breed_id">breed_id:</label>
+                    <label for="breed_id">Breed Name:</label>
                     <!--<select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" >--> 
                     <select class="form-control" id="breed_id" name="breed_id" pattern="[0-9]+" placeholder="" >
                         <!-- Access our breed_id tuple passed from app.py-->
@@ -66,7 +66,7 @@
                         {% endfor %} 
                     </select>
 
-                    <label for="dog_id">dog_id:</label>
+                    <label for="dog_id">Dog Name:</label>
                     <select class="form-control" id="dog_id" name="dog_id" pattern="[0-4]{1}" placeholder="" > 
                         <!-- Access our dog_id tuple passed from app.py-->
                         <!--<option value="0">&nbsp;</option>-->

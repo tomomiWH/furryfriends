@@ -19,9 +19,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username
+app.config['MYSQL_USER'] = 'cs340_watantom'  #osu username
+app.config['MYSQL_PASSWORD'] = '1710'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_watantom'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -442,8 +442,8 @@ def dogs_breed_records():
         data = cur.fetchall()
 
         # mySQL query to grab breed_id/breed_name data for our dropdown
-        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
-        # query2 = "SELECT Breeds.breed_id, breed_name AS breedName FROM Breeds"    # shwo all Breeds 
+        #query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        query2 = "SELECT Breeds.breed_id, breed_name AS breedName FROM Breeds"    # shwo all Breeds 
         cur = mysql.connection.cursor()
         cur.execute(query2)
         breed_data = cur.fetchall()
@@ -489,8 +489,8 @@ def edit_dogs_breed_records(dog_breed_record_id):
         breed_dog_id = cur.fetchall()
 
         # mySQL query to grab dog breed record id and name data for dropdown
-        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
-        # query2 = query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds"   ## Show All Breeds
+        #query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Dogs_Breed_Records ON Dogs_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Dogs ON Dogs.dog_id = Dogs_Breed_Records.dog_id"
+        query2 = query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds"   ## Show All Breeds
         cur = mysql.connection.cursor() 
         cur.execute(query2)
         breed_data = cur.fetchall()
@@ -802,6 +802,6 @@ def edit_cats_breed_records(cat_breed_record_id):
 # Listener 
 # change the port number if deploying on the flip servers
 if __name__ == "__main__":
-    app.run(port=65326, debug=True)
+    app.run(port=65315, debug=True)
 
 #host="flip2.engr.oregonstate.edu"
