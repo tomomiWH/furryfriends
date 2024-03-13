@@ -709,7 +709,8 @@ def cats_breed_records():
         data = cur.fetchall()
 
         # mySQL query to grab breed_id/breed_name data for our dropdown
-        query2 = "SELECT Breeds.breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        # query2 = "SELECT Breeds.breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        query2 = "SELECT Breeds.breed_id, breed_name AS breedName FROM Breeds"    # show all Breeds
         cur = mysql.connection.cursor()
         cur.execute(query2)
         breed_data = cur.fetchall()
@@ -759,7 +760,8 @@ def edit_cats_breed_records(cat_breed_record_id):
         breed_cat_id = cur.fetchall()
 
         # mySQL query to grab cat breed record id and name data for dropdown
-        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        # query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds INNER JOIN Cats_Breed_Records ON Cats_Breed_Records.breed_id =  Breeds.breed_id INNER JOIN Cats ON Cats.cat_id = Cats_Breed_Records.cat_id"
+        query2 = "SELECT DISTINCT Breeds.breed_id, breed_name AS breedName FROM Breeds"   # Show All Breeds
         cur = mysql.connection.cursor()
         cur.execute(query2)
         breed_data = cur.fetchall()
