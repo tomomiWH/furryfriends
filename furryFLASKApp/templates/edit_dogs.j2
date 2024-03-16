@@ -1,7 +1,9 @@
 <html>
-<!-- Adapted from the edit_people.j2 -->
-<!-- canvas module for learning purpose -->
-<!-- source https://github.com/osu-cs340-ecampus/flask-starter-app -->
+<!-- Citation Scope: Sample Flask application for database connection and CRUD-->
+<!-- Date: 3/18/2024 -->
+<!-- Team Member: Yushu Sun and Tomomi Watanabe Hudspath -->
+<!-- Originality: Adopted-->
+<!-- Source https://github.com/osu-cs340-ecampus/flask-starter-app and Canvas -->
 <head>
 	<title>Edit Dogs</title>
     <link href="../static/css/style.css" rel="stylesheet" type="text/css" />
@@ -17,13 +19,25 @@
                 <thead>
                     <tr>
                         <!-- Iterate through each key in the first entry to get the column name -->
-                        {% for key in data[0].keys() %}
+                        <!-- {% for key in data[0].keys() %} -->
 
                         <!-- Create a <th> tag with the key inside of it, this will be our header row -->
-                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        <!-- <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th> -->
                         
                         <!-- End of this for loop -->
-                        {% endfor %} 
+                        <!-- {% endfor %}  -->
+                        
+						<th scope="col" data-field="dog_id" data-filter-control="input">Dog ID</th>
+						<th scope="col" data-field="dog_name" data-filter-control="input">Dog Name</th>
+						<th scope="col" data-field="age_years" data-filter-control="input">Age (years)</th>
+						<th scope="col" data-field="weight_lb" data-filter-control="input">Weight (lb)</th>
+						<th scope="col" data-field="sex" data-filter-control="input"> Sex M/F</th>
+						<th scope="col" data-field="posted_date" data-filter-control="input">Posted Date</th>
+						<th scope="col" data-field="date_vaccinated" data-filter-control="input">Date Vaccinated</th>
+						<th scope="col" data-field="date_neutered" data-filter-control="input">Date Neutered</th>
+						<th scope="col" data-field="date_microchipped" data-filter-control="input">Date Microchipped</th>
+						<th scope="col" data-field="adopter_id" data-filter-control="input">Adopter</th>
+						<th scope="col" data-field="date_adopted" data-filter-control="input">Date Adopted</th>                       
                     </tr>
 
                 <tbody>
