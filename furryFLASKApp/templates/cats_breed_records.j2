@@ -76,14 +76,10 @@
             {% if data %}
 			    <thead>
 				    <tr>
-					    <!-- Iterate through each key in the first entry to get the column name -->
-                        {% for key in data[0].keys() %}
-					    
-                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
-					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-					
-                        <!-- End of this for loop -->
-                        {% endfor %} 
+					    <th scope="col" data-field="cat_breed_record_id" data-filter-control="input">Cat Breed ID</th>
+						<th scope="col" data-field="breedName" data-filter-control="input">Breed Name</th>
+						<th scope="col" data-field="catName" data-filter-control="input">Cat Name</th>
+
                     </tr>
 
 				<tbody>
@@ -115,7 +111,7 @@
 			<fieldset>
                 <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
 
-				<label for="breed_id">breed_id:</label>
+				<label for="breed_id">Breed Name:</label>
 				<select class="form-control" id="breed_id" name="breed_id" pattern="[0-4]{1}" placeholder="" > 
 					<!-- Access our breed_id tuple passed from app.py-->
 					<option value="0">&nbsp;- Select -</option>
@@ -130,7 +126,7 @@
 					{% endfor %} 
 				</select>
 
-                <label for="cat_id">cat_id:</label>
+                <label for="cat_id">Cat Name:</label>
 				<select class="form-control" id="cat_id" name="cat_id" pattern="[0-4]{1}" placeholder="" > 
 					<!-- Access our cat_id tuple passed from app.py-->
 					<option value="0">&nbsp;- Select -</option>

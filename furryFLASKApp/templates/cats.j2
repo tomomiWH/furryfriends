@@ -69,14 +69,17 @@
       {% if data %}
       <thead>
         <tr>
-          <!-- Iterate through each key in the first entry to get the column name -->
-          {% for key in data[0].keys() %}
-
-          <!-- Create a <th> tag with the key inside of it, this will be our header row -->
-          <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-
-          <!-- End of this for loop -->
-          {% endfor %}
+         		<th scope="col" data-field="cat_id" data-filter-control="input">Cat ID</th>
+						<th scope="col" data-field="cat_name" data-filter-control="input">Cat Name</th>
+						<th scope="col" data-field="age_years" data-filter-control="input">Age (years)</th>
+						<th scope="col" data-field="weight_lb" data-filter-control="input">Weight (lb)</th>
+						<th scope="col" data-field="sex" data-filter-control="input"> Sex M/F</th>
+						<th scope="col" data-field="posted_date" data-filter-control="input">Posted Date</th>
+						<th scope="col" data-field="date_vaccinated" data-filter-control="input">Date Vaccinated</th>
+						<th scope="col" data-field="date_neutered" data-filter-control="input">Date Neutered</th>
+						<th scope="col" data-field="date_microchipped" data-filter-control="input">Date Microchipped</th>
+						<th scope="col" data-field="adopter_id" data-filter-control="input">Adopter</th>
+						<th scope="col" data-field="date_adopted" data-filter-control="input">Date Adopted</th>
         </tr>
 
       <tbody>
@@ -99,7 +102,7 @@
         {% endif %}
     </table>
     <p>&nbsp;</p>
-    <p>Please remember to create new Breeds Record and if needed new Breed entries!</p>
+    <p>Please remember to create new Breeds Record entries and if needed new Breed entries!</p>
   </div> <!-- browse -->
 
   <div id="insert">
@@ -108,36 +111,36 @@
 			<legend><strong>Add Cat</strong></legend>
 			<fieldset>
                 <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
-				<label for="cat_name">cat_name:</label>
+				<label for="cat_name">Cat Name:</label>
 				<input type="text" class="form-control" id="cat_name" name="cat_name" pattern="[A-Za-z]{1,}" placeholder="" required>
 
-				<label for="age_years">age_years</label>
+				<label for="age_years">Age:</label>
 				<input type="number" class="form-control" id="age_years" name="age_years" pattern="[A-Za-z0-9]{1,}" placeholder="" min="0" required>
 
-				<label for="weight_lb">weight_lb:</label>
+				<label for="weight_lb">Weight:</label>
 				<input type="number" class="form-control" id="weight_lb" name="weight_lb" pattern="[A-Za-z]{1,}" placeholder="" min="0" required>
 
-                <label for="sex">sex:</label>
+        <label for="sex">Sex M&#47F:</label>
 				<input type="text" class="form-control" id="sex" name="sex" pattern="[A-Za-z]{1,}" placeholder="" required>
 
-                <label for="posted_date">posted_date:</label>
+                <label for="posted_date">Posted Date:</label>
 				<input type="date" class="form-control" id="posted_date" name="posted_date" pattern="[A-Za-z]{1,}" placeholder="" >
 
-                <label for="date_vaccinated">date_vaccinated :</label>
+                <label for="date_vaccinated">Date Vaccinated :</label>
 				<input type="date" class="form-control" id="date_vaccinated" name="date_vaccinated" pattern="[A-Za-z]{1,}" placeholder="" >
 
-                <label for="date_neutered">date_neutered :</label>
+                <label for="date_neutered">Date Neutered :</label>
 				<input type="date" class="form-control" id="date_neutered" name="date_neutered" pattern="[A-Za-z]{1,}" placeholder="" >
 
-                <label for="date_microchipped">date_microchipped :</label>
+                <label for="date_microchipped">Date Microchipped :</label>
 				<input type="date" class="form-control" id="date_microchipped" name="date_microchipped" pattern="[A-Za-z]{1,}" placeholder="" >
 
-				<label for="adopter_id">adopter_id:</label>
+				<label for="adopter_id">Adopter:</label>
 				<select class="form-control" id="adopter_id" name="adopter_id" pattern="[0-4]{1}" placeholder="" > 
 					<!-- Access our adopter_id tuple passed from app.py-->
-					<option value="0">&nbsp;</option>
+					<option value="0">&nbsp;- Select -</option>
 					{% for adopter_id in adopter_ids %}
-							<!-- If the value iterated adopter_id matches the value of the adopter_id of cat currently Editing, pre-select that option -->
+							<!-- If the value iterated adopter_id matches the value of the adopter_id of dog currently Editing, pre-select that option -->
 							{% if adopter_id['adopter_id'] == data[0].adopter_id %}
 								<option value="{{ adopter_id['adopter_id'] }}" selected> {{adopter_id['adopterName']}}</option>
 							{% else %}

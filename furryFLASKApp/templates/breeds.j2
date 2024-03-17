@@ -76,14 +76,8 @@
             {% if data %}
 			    <thead>
 				    <tr>
-					    <!-- Iterate through each key in the first entry to get the column name -->
-                        {% for key in data[0].keys() %}
-					    
-                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
-					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-					
-                        <!-- End of this for loop -->
-                        {% endfor %} 
+					    <th scope="col" data-field="breed_id" data-filter-control="input">Breed ID</th>
+						<th scope="col" data-field="breedName" data-filter-control="input">Breed Name</th>
                     </tr>
 
 				<tbody>
