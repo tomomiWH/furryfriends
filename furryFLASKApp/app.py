@@ -22,9 +22,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_'  #osu username
-app.config['MYSQL_PASSWORD'] = ''        #last 4 of db pass   
-app.config['MYSQL_DB'] = 'cs340_'    #osu username
+app.config['MYSQL_USER'] = 'cs340_sunyus'  #osu username
+app.config['MYSQL_PASSWORD'] = '8409'        #last 4 of db pass   
+app.config['MYSQL_DB'] = 'cs340_sunyus'    #osu username
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -537,6 +537,13 @@ def cats():
             cur = mysql.connection.cursor()
             cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped))
             mysql.connection.commit()  
+
+        # nullable adopter_id  
+        elif adopter_id=="0":
+            query = "INSERT INTO Cats(cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, date_adopted) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, date_adopted))
+            mysql.connection.commit()   
 
         else:
             query = "INSERT INTO Cats (cat_name, age_years, weight_lb, sex, posted_date, date_vaccinated, date_neutered, date_microchipped, adopter_id, date_adopted) VALUES (%s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
